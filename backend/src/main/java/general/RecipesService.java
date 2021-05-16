@@ -127,7 +127,7 @@ public class RecipesService implements IRecipeService {
         } else if (recipe.getSumCarbohydrates() == null) {
             errorCode = -8;
         }else {
-            String SQL = "UPDATE Recipe SET Name = ?, Instruction = ?, Image = ?, SumKcal = ?, SumProtein = ?, " +
+            String SQL = "UPDATE Recipe SET [Name] = ?, Instruction = ?, [Image] = ?, SumKcal = ?, SumProtein = ?, " +
                     "SumFats = ?, SumCarbohydrates = ?, WHERE RecipeId = ?";
             jdbcTemplate.update(SQL,
                     recipe.getName(),

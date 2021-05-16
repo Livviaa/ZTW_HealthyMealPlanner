@@ -1,7 +1,11 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Ingredient {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer IngredientId;
     private String Name;
     private String MeasureUnit;
@@ -25,10 +29,12 @@ public class Ingredient {
         CarbohydratesPer100 = carbohydratesPer100;
     }
 
+    @JsonIgnore
     public Integer getIngredientId() {
         return IngredientId;
     }
 
+    @JsonIgnore
     public void setIngredientId(Integer ingredientId) {
         IngredientId = ingredientId;
     }

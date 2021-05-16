@@ -1,10 +1,14 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 import java.util.List;
 
 public class DailyMenu {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer DailyMenuId;
     private Integer UserId;
     private Date Date;
@@ -12,6 +16,8 @@ public class DailyMenu {
     private Double SumProtein;
     private Double SumFats;
     private Double SumCarbohydrates;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Meal> Meals;
 
     public DailyMenu() {
@@ -28,10 +34,12 @@ public class DailyMenu {
         Meals = meals;
     }
 
+    @JsonIgnore
     public Integer getDailyMenuId() {
         return DailyMenuId;
     }
 
+    @JsonIgnore
     public void setDailyMenuId(Integer dailyMenuId) {
         DailyMenuId = dailyMenuId;
     }
@@ -84,10 +92,12 @@ public class DailyMenu {
         SumCarbohydrates = sumCarbohydrates;
     }
 
+    @JsonIgnore
     public List<Meal> getMeals() {
         return Meals;
     }
 
+    @JsonIgnore
     public void setMeals(List<Meal> meals) {
         Meals = meals;
     }

@@ -100,7 +100,7 @@ public class IngredientsService implements IIngredientService {
         } else if (ingredient.getCarbohydratesPer100() == null) {
             errorCode = -8;
         }else {
-            String SQL = "UPDATE Ingredient SET Name = ?, MeasureUnit = ?, Units = ?, KcalPer100 = ?, ProteinPer100 = ?, " +
+            String SQL = "UPDATE Ingredient SET [Name] = ?, MeasureUnit = ?, Units = ?, KcalPer100 = ?, ProteinPer100 = ?, " +
                     "FatsPer100 = ?, CarbohydratesPer100 = ?, WHERE IngredientId = ?";
             jdbcTemplate.update(SQL,
                     ingredient.getName(),

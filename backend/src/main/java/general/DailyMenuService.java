@@ -116,7 +116,7 @@ public class DailyMenuService implements IDailyMenuService {
         } else if (dailyMenu.getSumCarbohydrates() == null) {
             errorCode = -7;
         } else {
-            String SQL = "UPDATE DailyMenu SET UserId = ?, Date = ?, SumKcal = ?, SumProtein = ?, " +
+            String SQL = "UPDATE DailyMenu SET UserId = ?, [Date] = ?, SumKcal = ?, SumProtein = ?, " +
                     "SumFats = ?, SumCarbohydrates = ? WHERE DailyMenuId = ?";
             jdbcTemplate.update(SQL,
                     dailyMenu.getUserId(),

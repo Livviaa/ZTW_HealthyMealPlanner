@@ -1,14 +1,21 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Meal {
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer MealId;
     private Integer DailyMenuId;
     private Double SumKcal;
     private Double SumProtein;
     private Double SumFats;
     private Double SumCarbohydrates;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Recipe> Recipes;
 
     public Meal() {
@@ -24,10 +31,12 @@ public class Meal {
         Recipes = recipes;
     }
 
+    @JsonIgnore
     public Integer getMealId() {
         return MealId;
     }
 
+    @JsonIgnore
     public void setMealId(Integer mealId) {
         MealId = mealId;
     }
@@ -72,10 +81,12 @@ public class Meal {
         SumCarbohydrates = sumCarbohydrates;
     }
 
+    @JsonIgnore
     public List<Recipe> getRecipes() {
         return Recipes;
     }
 
+    @JsonIgnore
     public void setRecipes(List<Recipe> recipes) {
         Recipes = recipes;
     }

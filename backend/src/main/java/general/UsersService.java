@@ -95,7 +95,7 @@ public class UsersService implements IUsersService {
     // READ
     @Override
     public User getUser(Integer id) {
-        String sql = "SELECT * FROM User WHERE UserId = " + id;
+        String sql = "SELECT * FROM [User] WHERE UserId = " + id;
         List<User> users = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(User.class));
 
         if (users.size() == 0){
@@ -166,8 +166,8 @@ public class UsersService implements IUsersService {
         } else if (user.getRecommendedDailyCarbohydrates() == null) {
             errorCode = -13;
         } else {
-            String SQL = "UPDATE User SET Name = ?, Surname = ?, Sex = ?, Weight = ?, Height = ?, Activity = ?, " +
-                    "Email = ?, Password = ?, RecommendedDailyKcal = ?, RecommendedDailyProtein = ?, " +
+            String SQL = "UPDATE User SET [Name] = ?, Surname = ?, Sex = ?, [Weight] = ?, Height = ?, Activity = ?, " +
+                    "Email = ?, [Password] = ?, RecommendedDailyKcal = ?, RecommendedDailyProtein = ?, " +
                     "RecommendedDailyFats = ?, RecommendedDailyCarbohydrates = ? WHERE UserId = ?";
             jdbcTemplate.update(SQL,
                     user.getName(),
@@ -193,7 +193,7 @@ public class UsersService implements IUsersService {
     public Integer deleteUser(Integer id) {
         User userToDelete = getUser(id);
         if (userToDelete != null) {
-            String SQL = "DELETE FROM User WHERE UserId = ?";
+            String SQL = "DELETE FROM [User] WHERE UserId = ?";
             jdbcTemplate.update(SQL, id);
             return 0;
         }

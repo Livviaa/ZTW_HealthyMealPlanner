@@ -1,8 +1,14 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.List;
 
 public class User {
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer UserId;
     private String Name;
     private String Surname;
@@ -16,6 +22,8 @@ public class User {
     private Double RecommendedDailyProtein;
     private Double RecommendedDailyFats;
     private Double RecommendedDailyCarbohydrates;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<DailyMenu> DailyMeals;
 
     public User() {
@@ -40,10 +48,12 @@ public class User {
         DailyMeals = dailyMeals;
     }
 
+    @JsonIgnore
     public Integer getUserId() {
         return UserId;
     }
 
+    @JsonIgnore
     public void setUserId(Integer userId) {
         UserId = userId;
     }
@@ -144,10 +154,12 @@ public class User {
         RecommendedDailyCarbohydrates = recommendedDailyCarbohydrates;
     }
 
+    @JsonIgnore
     public List<DailyMenu> getDailyMeals() {
         return DailyMeals;
     }
 
+    @JsonIgnore
     public void setDailyMeals(List<DailyMenu> dailyMeals) {
         DailyMeals = dailyMeals;
     }

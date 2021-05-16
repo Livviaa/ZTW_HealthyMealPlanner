@@ -1,9 +1,13 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Recipe {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer RecipeId;
     private String Name;
     private String Instruction;
@@ -12,6 +16,8 @@ public class Recipe {
     private Double SumProtein;
     private Double SumFats;
     private Double SumCarbohydrates;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<Ingredient> Ingredients;
 
     public Recipe() {
@@ -29,10 +35,12 @@ public class Recipe {
         Ingredients = ingredients;
     }
 
+    @JsonIgnore
     public Integer getRecipeId() {
         return RecipeId;
     }
 
+    @JsonIgnore
     public void setRecipeId(Integer recipeId) {
         RecipeId = recipeId;
     }
@@ -93,10 +101,12 @@ public class Recipe {
         SumCarbohydrates = sumCarbohydrates;
     }
 
+    @JsonIgnore
     public List<Ingredient> getIngredients() {
         return Ingredients;
     }
 
+    @JsonIgnore
     public void setIngredients(List<Ingredient> ingredients) {
         Ingredients = ingredients;
     }
