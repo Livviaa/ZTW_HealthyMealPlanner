@@ -23,7 +23,7 @@ public class IngredientsControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "Ingredient: #" + ingredient.getNazwa_produktu() + " created.";
+            errorMessage = "Ingredient: #" + ingredient.getName() + " created.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
             errorMessage = "Error with: " + ingredient + ".";
@@ -63,10 +63,10 @@ public class IngredientsControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "Ingredient: #" + ingredient.getNazwa_produktu() + " updated.";
+            errorMessage = "Ingredient: #" + ingredient.getName() + " updated.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: " + ingredient.getNazwa_produktu() + ".";
+            errorMessage = "Error with: " + ingredient.getName() + ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);

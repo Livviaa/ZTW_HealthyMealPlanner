@@ -5,90 +5,90 @@ import java.util.List;
 
 public class DailyMenu {
 
-    private Integer Jadlospis_id;
-    private Integer Uzytkownik_id;
-    private Date Data;
-    private Double Sum_kcal;
-    private Double Sum_bialko;
-    private Double Sum_tluszcze;
-    private Double Sum_weglowodany;
-    private List<Meal> Posilki;
+    private Integer DailyMenuId;
+    private Integer UserId;
+    private Date Date;
+    private Double SumKcal;
+    private Double SumProtein;
+    private Double SumFats;
+    private Double SumCarbohydrates;
+    private List<Meal> Meals;
 
     public DailyMenu() {
     }
 
-    public DailyMenu(Integer jadlospis_id, Integer uzytkownik_id, Date data, Double sum_kcal, Double sum_bialko, Double sum_tluszcze, Double sum_weglowodany, List<Meal>posilki) {
-        Jadlospis_id = jadlospis_id;
-        Uzytkownik_id = uzytkownik_id;
-        Data = data;
-        Sum_kcal = sum_kcal;
-        Sum_bialko = sum_bialko;
-        Sum_tluszcze = sum_tluszcze;
-        Sum_weglowodany = sum_weglowodany;
-        Posilki = posilki;
+    public DailyMenu(Integer dailyMenuId, Integer userId, Date date, Double sumKcal, Double sumProtein, Double sumFats, Double sumCarbohydrates, List<Meal> meals) {
+        DailyMenuId = dailyMenuId;
+        UserId = userId;
+        Date = date;
+        SumKcal = sumKcal;
+        SumProtein = sumProtein;
+        SumFats = sumFats;
+        SumCarbohydrates = sumCarbohydrates;
+        Meals = meals;
     }
 
-    public Integer getJadlospis_id() {
-        return Jadlospis_id;
+    public Integer getDailyMenuId() {
+        return DailyMenuId;
     }
 
-    public void setJadlospis_id(Integer jadlospis_id) {
-        Jadlospis_id = jadlospis_id;
+    public void setDailyMenuId(Integer dailyMenuId) {
+        DailyMenuId = dailyMenuId;
     }
 
-    public Integer getUzytkownik_id() {
-        return Uzytkownik_id;
+    public Integer getUserId() {
+        return UserId;
     }
 
-    public void setUzytkownik_id(Integer uzytkownik_id) {
-        Uzytkownik_id = uzytkownik_id;
+    public void setUserId(Integer userId) {
+        UserId = userId;
     }
 
-    public Date getData() {
-        return Data;
+    public Date getDate() {
+        return Date;
     }
 
-    public void setData(Date data) {
-        Data = data;
+    public void setDate(Date date) {
+        Date = date;
     }
 
-    public Double getSum_kcal() {
-        return Sum_kcal;
+    public Double getSumKcal() {
+        return SumKcal;
     }
 
-    public void setSum_kcal(Double sum_kcal) {
-        Sum_kcal = sum_kcal;
+    public void setSumKcal(Double sumKcal) {
+        SumKcal = sumKcal;
     }
 
-    public Double getSum_bialko() {
-        return Sum_bialko;
+    public Double getSumProtein() {
+        return SumProtein;
     }
 
-    public void setSum_bialko(Double sum_bialko) {
-        Sum_bialko = sum_bialko;
+    public void setSumProtein(Double sumProtein) {
+        SumProtein = sumProtein;
     }
 
-    public Double getSum_tluszcze() {
-        return Sum_tluszcze;
+    public Double getSumFats() {
+        return SumFats;
     }
 
-    public void setSum_tluszcze(Double sum_tluszcze) {
-        Sum_tluszcze = sum_tluszcze;
+    public void setSumFats(Double sumFats) {
+        SumFats = sumFats;
     }
 
-    public Double getSum_weglowodany() {
-        return Sum_weglowodany;
+    public Double getSumCarbohydrates() {
+        return SumCarbohydrates;
     }
 
-    public void setSum_weglowodany(Double sum_weglowodany) {
-        Sum_weglowodany = sum_weglowodany;
+    public void setSumCarbohydrates(Double sumCarbohydrates) {
+        SumCarbohydrates = sumCarbohydrates;
     }
 
-    public List<Meal> getPosilki() {
-        return Posilki;
+    public List<Meal> getMeals() {
+        return Meals;
     }
 
-    public void setPosilki(List<Meal> posilki) {
-        Posilki = posilki;
+    public void setMeals(List<Meal> meals) {
+        Meals = meals;
     }
 }

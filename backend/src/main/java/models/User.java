@@ -3,97 +3,97 @@ package models;
 import java.util.List;
 
 public class User {
-    private Integer Uzytkownik_id;
-    private String Imie;
-    private String Nazwisko;
-    private String Plec;
-    private Double Waga;
-    private Integer Wzrost;
-    private String Aktywnosc;
+    private Integer UserId;
+    private String Name;
+    private String Surname;
+    private String Sex;
+    private Double Weight;
+    private Integer Height;
+    private String Activity;
     private String Email;
-    private String Haslo;
-    private Double Zalecane_dzienne_kcal;
-    private Double Zalecane_dzienne_bialko;
-    private Double Zalecane_dzienne_tluszcze;
-    private Double Zalecane_dzienne_weglowodany;
-    private List<DailyMenu> Jadlospisy;
+    private String Password;
+    private Double RecommendedDailyKcal;
+    private Double RecommendedDailyProtein;
+    private Double RecommendedDailyFats;
+    private Double RecommendedDailyCarbohydrates;
+    private List<DailyMenu> DailyMeals;
 
     public User() {
     }
 
-    public User(Integer uzytkownik_id, String imie, String nazwisko, String plec, Double waga, Integer wzrost, String aktywnosc,
-                String email, String haslo, Double zalecane_dzienne_kcal, Double zalecane_dzienne_bialko,
-                Double zalecane_dzienne_tluszcze, Double zalecane_dzienne_weglowodany, List<DailyMenu> jadlospisy) {
-        Uzytkownik_id = uzytkownik_id;
-        Imie = imie;
-        Nazwisko = nazwisko;
-        Plec = plec;
-        Waga = waga;
-        Wzrost = wzrost;
-        Aktywnosc = aktywnosc;
+    public User(Integer userId, String name, String surname, String sex, Double weight, Integer height, String activity,
+                String email, String password, Double recommendedDailyKcal, Double recommendedDailyProtein,
+                Double recommendedDailyFats, Double recommendedDailyCarbohydrates, List<DailyMenu> dailyMeals) {
+        UserId = userId;
+        Name = name;
+        Surname = surname;
+        Sex = sex;
+        Weight = weight;
+        Height = height;
+        Activity = activity;
         Email = email;
-        Haslo = haslo;
-        Zalecane_dzienne_kcal = zalecane_dzienne_kcal;
-        Zalecane_dzienne_bialko = zalecane_dzienne_bialko;
-        Zalecane_dzienne_tluszcze = zalecane_dzienne_tluszcze;
-        Zalecane_dzienne_weglowodany = zalecane_dzienne_weglowodany;
-        Jadlospisy = jadlospisy;
+        Password = password;
+        RecommendedDailyKcal = recommendedDailyKcal;
+        RecommendedDailyProtein = recommendedDailyProtein;
+        RecommendedDailyFats = recommendedDailyFats;
+        RecommendedDailyCarbohydrates = recommendedDailyCarbohydrates;
+        DailyMeals = dailyMeals;
     }
 
-    public Integer getUzytkownik_id() {
-        return Uzytkownik_id;
+    public Integer getUserId() {
+        return UserId;
     }
 
-    public void setUzytkownik_id(Integer uzytkownik_id) {
-        Uzytkownik_id = uzytkownik_id;
+    public void setUserId(Integer userId) {
+        UserId = userId;
     }
 
-    public String getImie() {
-        return Imie;
+    public String getName() {
+        return Name;
     }
 
-    public void setImie(String imie) {
-        Imie = imie;
+    public void setName(String name) {
+        Name = name;
     }
 
-    public String getNazwisko() {
-        return Nazwisko;
+    public String getSurname() {
+        return Surname;
     }
 
-    public void setNazwisko(String nazwisko) {
-        Nazwisko = nazwisko;
+    public void setSurname(String surname) {
+        Surname = surname;
     }
 
-    public String getPlec() {
-        return Plec;
+    public String getSex() {
+        return Sex;
     }
 
-    public void setPlec(String plec) {
-        Plec = plec;
+    public void setSex(String sex) {
+        Sex = sex;
     }
 
-    public Double getWaga() {
-        return Waga;
+    public Double getWeight() {
+        return Weight;
     }
 
-    public void setWaga(Double waga) {
-        Waga = waga;
+    public void setWeight(Double weight) {
+        Weight = weight;
     }
 
-    public Integer getWzrost() {
-        return Wzrost;
+    public Integer getHeight() {
+        return Height;
     }
 
-    public void setWzrost(Integer wzrost) {
-        Wzrost = wzrost;
+    public void setHeight(Integer height) {
+        Height = height;
     }
 
-    public String getAktywnosc() {
-        return Aktywnosc;
+    public String getActivity() {
+        return Activity;
     }
 
-    public void setAktywnosc(String aktywnosc) {
-        Aktywnosc = aktywnosc;
+    public void setActivity(String activity) {
+        Activity = activity;
     }
 
     public String getEmail() {
@@ -104,51 +104,51 @@ public class User {
         Email = email;
     }
 
-    public String getHaslo() {
-        return Haslo;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setHaslo(String haslo) {
-        Haslo = haslo;
+    public void setPassword(String password) {
+        Password = password;
     }
 
-    public Double getZalecane_dzienne_kcal() {
-        return Zalecane_dzienne_kcal;
+    public Double getRecommendedDailyKcal() {
+        return RecommendedDailyKcal;
     }
 
-    public void setZalecane_dzienne_kcal(Double zalecane_dzienne_kcal) {
-        Zalecane_dzienne_kcal = zalecane_dzienne_kcal;
+    public void setRecommendedDailyKcal(Double recommendedDailyKcal) {
+        RecommendedDailyKcal = recommendedDailyKcal;
     }
 
-    public Double getZalecane_dzienne_bialko() {
-        return Zalecane_dzienne_bialko;
+    public Double getRecommendedDailyProtein() {
+        return RecommendedDailyProtein;
     }
 
-    public void setZalecane_dzienne_bialko(Double zalecane_dzienne_bialko) {
-        Zalecane_dzienne_bialko = zalecane_dzienne_bialko;
+    public void setRecommendedDailyProtein(Double recommendedDailyProtein) {
+        RecommendedDailyProtein = recommendedDailyProtein;
     }
 
-    public Double getZalecane_dzienne_tluszcze() {
-        return Zalecane_dzienne_tluszcze;
+    public Double getRecommendedDailyFats() {
+        return RecommendedDailyFats;
     }
 
-    public void setZalecane_dzienne_tluszcze(Double zalecane_dzienne_tluszcze) {
-        Zalecane_dzienne_tluszcze = zalecane_dzienne_tluszcze;
+    public void setRecommendedDailyFats(Double recommendedDailyFats) {
+        RecommendedDailyFats = recommendedDailyFats;
     }
 
-    public Double getZalecane_dzienne_weglowodany() {
-        return Zalecane_dzienne_weglowodany;
+    public Double getRecommendedDailyCarbohydrates() {
+        return RecommendedDailyCarbohydrates;
     }
 
-    public void setZalecane_dzienne_weglowodany(Double zalecane_dzienne_weglowodany) {
-        Zalecane_dzienne_weglowodany = zalecane_dzienne_weglowodany;
+    public void setRecommendedDailyCarbohydrates(Double recommendedDailyCarbohydrates) {
+        RecommendedDailyCarbohydrates = recommendedDailyCarbohydrates;
     }
 
-    public List<DailyMenu> getJadlospisy() {
-        return Jadlospisy;
+    public List<DailyMenu> getDailyMeals() {
+        return DailyMeals;
     }
 
-    public void setJadlospisy(List<DailyMenu> jadlospisy) {
-        Jadlospisy = jadlospisy;
+    public void setDailyMeals(List<DailyMenu> dailyMeals) {
+        DailyMeals = dailyMeals;
     }
 }

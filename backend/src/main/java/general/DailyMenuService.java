@@ -26,29 +26,29 @@ public class DailyMenuService implements IDailyMenuService {
     public Integer createDailyMenu(DailyMenu dailyMenu) {
         Integer errorCode;
 
-        if (dailyMenu.getJadlospis_id() == null) {
+        if (dailyMenu.getDailyMenuId() == null) {
             errorCode = -1;
-        } else if (dailyMenu.getUzytkownik_id() == null) {
+        } else if (dailyMenu.getUserId() == null) {
             errorCode = -2;
-        } else if (dailyMenu.getData() == null) {
+        } else if (dailyMenu.getDate() == null) {
             errorCode = -3;
-        } else if (dailyMenu.getSum_kcal() == null) {
+        } else if (dailyMenu.getSumKcal() == null) {
             errorCode = -4;
-        } else if (dailyMenu.getSum_bialko() == null) {
+        } else if (dailyMenu.getSumProtein() == null) {
             errorCode = -5;
-        } else if (dailyMenu.getSum_tluszcze() == null) {
+        } else if (dailyMenu.getSumFats() == null) {
             errorCode = -6;
-        } else if (dailyMenu.getSum_weglowodany() == null) {
+        } else if (dailyMenu.getSumCarbohydrates() == null) {
             errorCode = -7;
         } else {
             jdbcTemplate.update(
-                    "INSERT INTO Jadlospis VALUES (?, ?, ?, ?, ?, ?)",
-                    dailyMenu.getUzytkownik_id(),
-                    dailyMenu.getData(),
-                    dailyMenu.getSum_kcal(),
-                    dailyMenu.getSum_bialko(),
-                    dailyMenu.getSum_tluszcze(),
-                    dailyMenu.getSum_weglowodany()
+                    "INSERT INTO DailyMenu VALUES (?, ?, ?, ?, ?, ?)",
+                    dailyMenu.getUserId(),
+                    dailyMenu.getDate(),
+                    dailyMenu.getSumKcal(),
+                    dailyMenu.getSumProtein(),
+                    dailyMenu.getSumFats(),
+                    dailyMenu.getSumCarbohydrates()
             );
             errorCode = 0;
         }
@@ -58,7 +58,7 @@ public class DailyMenuService implements IDailyMenuService {
 
     @Override
     public DailyMenu getDailyMenu(Integer id) {
-        String sql = "SELECT * FROM Jadlospis WHERE Jadlospis_id = " + id;
+        String sql = "SELECT * FROM DailyMenu WHERE DailyMenuId = " + id;
         List<DailyMenu> menus = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(DailyMenu.class));
 
         if (menus.size() == 0) {
@@ -67,10 +67,10 @@ public class DailyMenuService implements IDailyMenuService {
             DailyMenu menu = menus.get(0);
             List<Meal> meals = (List<Meal>) mealsService.getMeal();
             for (Meal meal : meals){
-                if(menu.getJadlospis_id().equals(meal.getJadlospis_id())){
-                    if(menu.getPosilki() == null)
-                        menu.setPosilki(new ArrayList<>());
-                    menu.getPosilki().add(meal);
+                if(menu.getDailyMenuId().equals(meal.getDailyMenuId())){
+                    if(menu.getMeals() == null)
+                        menu.setMeals(new ArrayList<>());
+                    menu.getMeals().add(meal);
                 }
             }
             return menu;
@@ -79,16 +79,16 @@ public class DailyMenuService implements IDailyMenuService {
 
     @Override
     public Collection<DailyMenu> getDailyMenu() {
-        String sql = "SELECT * FROM Jadlospis";
+        String sql = "SELECT * FROM DailyMenu";
         List<DailyMenu> menus = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(DailyMenu.class));
         List<Meal> meals = (List<Meal>) mealsService.getMeal();
 
         for (DailyMenu menu : menus) {
             for (Meal meal : meals) {
-                if(menu.getJadlospis_id().equals(meal.getJadlospis_id())){
-                    if(menu.getPosilki() == null)
-                        menu.setPosilki(new ArrayList<>());
-                    menu.getPosilki().add(meal);
+                if(menu.getDailyMenuId().equals(meal.getDailyMenuId())){
+                    if(menu.getMeals() == null)
+                        menu.setMeals(new ArrayList<>());
+                    menu.getMeals().add(meal);
                 }
             }
         }
@@ -99,33 +99,33 @@ public class DailyMenuService implements IDailyMenuService {
     @Override
     public Integer updateDailyMenu(DailyMenu dailyMenu) {
         Integer errorCode;
-        DailyMenu menuToUpdate = getDailyMenu(dailyMenu.getUzytkownik_id());
+        DailyMenu menuToUpdate = getDailyMenu(dailyMenu.getUserId());
 
         if (menuToUpdate == null) {
             errorCode = -1;
-        } else if (dailyMenu.getUzytkownik_id() == null) {
+        } else if (dailyMenu.getUserId() == null) {
             errorCode = -2;
-        } else if (dailyMenu.getData() == null) {
+        } else if (dailyMenu.getDate() == null) {
             errorCode = -3;
-        } else if (dailyMenu.getSum_kcal() == null) {
+        } else if (dailyMenu.getSumKcal() == null) {
             errorCode = -4;
-        } else if (dailyMenu.getSum_bialko() == null) {
+        } else if (dailyMenu.getSumProtein() == null) {
             errorCode = -5;
-        } else if (dailyMenu.getSum_tluszcze() == null) {
+        } else if (dailyMenu.getSumFats() == null) {
             errorCode = -6;
-        } else if (dailyMenu.getSum_weglowodany() == null) {
+        } else if (dailyMenu.getSumCarbohydrates() == null) {
             errorCode = -7;
         } else {
-            String SQL = "UPDATE Jadlospis SET Uzytkownik_id = ?, Data = ?, Sum_kcal = ?, Sum_bialko = ?, " +
-                    "Sum_tluszcze = ?, Sum_weglowodany = ? WHERE Jadlospis_id = ?";
+            String SQL = "UPDATE DailyMenu SET UserId = ?, Date = ?, SumKcal = ?, SumProtein = ?, " +
+                    "SumFats = ?, SumCarbohydrates = ? WHERE DailyMenuId = ?";
             jdbcTemplate.update(SQL,
-                    dailyMenu.getUzytkownik_id(),
-                    dailyMenu.getData(),
-                    dailyMenu.getSum_kcal(),
-                    dailyMenu.getSum_bialko(),
-                    dailyMenu.getSum_tluszcze(),
-                    dailyMenu.getSum_weglowodany(),
-                    dailyMenu.getJadlospis_id()
+                    dailyMenu.getUserId(),
+                    dailyMenu.getDate(),
+                    dailyMenu.getSumKcal(),
+                    dailyMenu.getSumProtein(),
+                    dailyMenu.getSumFats(),
+                    dailyMenu.getSumCarbohydrates(),
+                    dailyMenu.getDailyMenuId()
             );
             errorCode = 0;
         }
@@ -136,7 +136,7 @@ public class DailyMenuService implements IDailyMenuService {
     public Integer deleteDailyMenu(Integer id) {
         DailyMenu dailyMenuToDelete = getDailyMenu(id);
         if (dailyMenuToDelete != null) {
-            String SQL = "DELETE FROM Jadlospis WHERE Jadlospis_id = ?";
+            String SQL = "DELETE FROM DailyMenu WHERE DailyMenuId = ?";
             jdbcTemplate.update(SQL, id);
             return 0;
         }

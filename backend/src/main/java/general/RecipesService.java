@@ -2,14 +2,14 @@ package general;
 
 import models.Ingredient;
 import models.Recipe;
-import models.Recipe_Ingredient;
+import models.RecipesAndIngredients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import services.IIngredientService;
 import services.IRecipeService;
-import services.IRecipes_IngredientsService;
+import services.IRecipesAndIngredientsService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,7 +25,7 @@ public class RecipesService implements IRecipeService {
     IIngredientService ingredientService;
 
     @Autowired
-    IRecipes_IngredientsService recipes_ingredientsService;
+    IRecipesAndIngredientsService recipes_ingredientsService;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -35,32 +35,32 @@ public class RecipesService implements IRecipeService {
     public Integer createRecipe(Recipe recipe) {
         Integer errorCode;
 
-        if (recipe.getPrzepis_id() == null) {
+        if (recipe.getRecipeId() == null) {
             errorCode = -1;
-        } else if (recipe.getNazwa_potrawy() == null) {
+        } else if (recipe.getName() == null) {
             errorCode = -2;
-        } else if (recipe.getTresc() == null) {
+        } else if (recipe.getInstruction() == null) {
             errorCode = -3;
-        } else if (recipe.getZdjecie() == null) {
+        } else if (recipe.getImage() == null) {
             errorCode = -4;
-        } else if (recipe.getSum_kcal() == null) {
+        } else if (recipe.getSumKcal() == null) {
             errorCode = -5;
-        } else if (recipe.getSum_bialko() == null) {
+        } else if (recipe.getSumProtein() == null) {
             errorCode = -6;
-        } else if (recipe.getSum_tluszcze() == null) {
+        } else if (recipe.getSumFats() == null) {
             errorCode = -7;
-        } else if (recipe.getSum_weglowodany() == null) {
+        } else if (recipe.getSumCarbohydrates() == null) {
             errorCode = -8;
         } else {
             jdbcTemplate.update(
-                    "INSERT INTO Przepis VALUES (?, ?, ?, ?, ?, ?, ?)",
-                    recipe.getNazwa_potrawy(),
-                    recipe.getTresc(),
-                    recipe.getZdjecie(),
-                    recipe.getSum_kcal(),
-                    recipe.getSum_bialko(),
-                    recipe.getSum_tluszcze(),
-                    recipe.getSum_weglowodany()
+                    "INSERT INTO Recipe VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    recipe.getName(),
+                    recipe.getInstruction(),
+                    recipe.getImage(),
+                    recipe.getSumKcal(),
+                    recipe.getSumProtein(),
+                    recipe.getSumFats(),
+                    recipe.getSumCarbohydrates()
             );
             errorCode = 0;
         }
@@ -70,7 +70,7 @@ public class RecipesService implements IRecipeService {
     // READ
     @Override
     public Recipe getRecipe(Integer id) {
-        String sql = "SELECT * FROM Przepis WHERE Przepis_id  = " + id;
+        String sql = "SELECT * FROM Recipe WHERE RecipeId  = " + id;
         List<Recipe> recipes = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Recipe.class));
 
         if (recipes.size() == 0){
@@ -83,18 +83,18 @@ public class RecipesService implements IRecipeService {
 
     @Override
     public Collection<Recipe> getRecipe() {
-        String sql = "SELECT * FROM Przepis";
+        String sql = "SELECT * FROM Recipe";
         List<Recipe> recipes = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Recipe.class));
         List<Ingredient> ingredients = (List<Ingredient>) ingredientService.getIngredient();
-        List<Recipe_Ingredient> recipe_ingredients = (List<Recipe_Ingredient>) recipes_ingredientsService.getRecipe_Ingredient();
+        List<RecipesAndIngredients> allRecipesAndIngredients = (List<RecipesAndIngredients>) recipes_ingredientsService.getRecipesAndIngredient();
 
         for (Recipe recipe : recipes){
             for(Ingredient ingredient: ingredients){
-                for(Recipe_Ingredient recipe_ingredient: recipe_ingredients){
-                    if(recipe_ingredient.getPrzepis_id().equals(recipe.getPrzepis_id()) && recipe_ingredient.getProdukt_id().equals(ingredient.getProdukt_id())){
-                        if (recipe.getSkladniki() == null)
-                            recipe.setSkladniki(new ArrayList<>());
-                        recipe.getSkladniki().add(ingredient);
+                for(RecipesAndIngredients recipesAndIngredients : allRecipesAndIngredients){
+                    if(recipesAndIngredients.getRecipeId().equals(recipe.getRecipeId()) && recipesAndIngredients.getIngredientId().equals(ingredient.getIngredientId())){
+                        if (recipe.getIngredients() == null)
+                            recipe.setIngredients(new ArrayList<>());
+                        recipe.getIngredients().add(ingredient);
                     }
                 }
             }
@@ -108,36 +108,36 @@ public class RecipesService implements IRecipeService {
     @Override
     public Integer updateRecipe(Recipe recipe) {
         Integer errorCode;
-        Recipe recipesToUpdate = getRecipe(recipe.getPrzepis_id());
+        Recipe recipesToUpdate = getRecipe(recipe.getRecipeId());
 
         if (recipesToUpdate == null) {
             errorCode = -1;
-        } else if (recipe.getNazwa_potrawy() == null) {
+        } else if (recipe.getName() == null) {
             errorCode = -2;
-        } else if (recipe.getTresc() == null) {
+        } else if (recipe.getInstruction() == null) {
             errorCode = -3;
-        } else if (recipe.getZdjecie() == null) {
+        } else if (recipe.getImage() == null) {
             errorCode = -4;
-        } else if (recipe.getSum_kcal() == null) {
+        } else if (recipe.getSumKcal() == null) {
             errorCode = -5;
-        } else if (recipe.getSum_bialko() == null) {
+        } else if (recipe.getSumProtein() == null) {
             errorCode = -6;
-        } else if (recipe.getSum_tluszcze() == null) {
+        } else if (recipe.getSumFats() == null) {
             errorCode = -7;
-        } else if (recipe.getSum_weglowodany() == null) {
+        } else if (recipe.getSumCarbohydrates() == null) {
             errorCode = -8;
         }else {
-            String SQL = "UPDATE Przepis SET Nazwa_potrawy = ?, Tresc = ?, Zdjecie = ?, Sum_kcal = ?, Sum_bialko = ?, " +
-                    "Sum_tluszcze = ?, Sum_weglowodany = ?, WHERE Przepis_id = ?";
+            String SQL = "UPDATE Recipe SET Name = ?, Instruction = ?, Image = ?, SumKcal = ?, SumProtein = ?, " +
+                    "SumFats = ?, SumCarbohydrates = ?, WHERE RecipeId = ?";
             jdbcTemplate.update(SQL,
-                    recipe.getNazwa_potrawy(),
-                    recipe.getTresc(),
-                    recipe.getZdjecie(),
-                    recipe.getSum_kcal(),
-                    recipe.getSum_bialko(),
-                    recipe.getSum_tluszcze(),
-                    recipe.getSum_weglowodany(),
-                    recipe.getPrzepis_id()
+                    recipe.getName(),
+                    recipe.getInstruction(),
+                    recipe.getImage(),
+                    recipe.getSumKcal(),
+                    recipe.getSumProtein(),
+                    recipe.getSumFats(),
+                    recipe.getSumCarbohydrates(),
+                    recipe.getRecipeId()
             );
             errorCode = 0;
         }
@@ -149,7 +149,7 @@ public class RecipesService implements IRecipeService {
     public Integer deleteRecipe(Integer id) {
         Recipe recipesToDelete = getRecipe(id);
         if (recipesToDelete != null) {
-            String SQL = "DELETE FROM Przepis WHERE Przepis_id = ?";
+            String SQL = "DELETE FROM Recipe WHERE RecipeId = ?";
             jdbcTemplate.update(SQL, id);
             return 0;
         }

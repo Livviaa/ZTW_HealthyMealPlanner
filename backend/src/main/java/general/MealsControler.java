@@ -23,10 +23,10 @@ public class MealsControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "Meal: #" + meal.getPosilek_id() + " created.";
+            errorMessage = "Meal: #" + meal.getMealId() + " created.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: " + meal.getPosilek_id()+ ".";
+            errorMessage = "Error with: " + meal.getMealId()+ ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);
@@ -63,10 +63,10 @@ public class MealsControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "Meal: #" + meal.getPosilek_id() + " updated.";
+            errorMessage = "Meal: #" + meal.getMealId() + " updated.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: " + meal.getPosilek_id() + ".";
+            errorMessage = "Error with: " + meal.getMealId() + ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);

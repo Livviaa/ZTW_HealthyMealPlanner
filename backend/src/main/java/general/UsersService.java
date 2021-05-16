@@ -1,14 +1,12 @@
 package general;
 
 import models.DailyMenu;
-import models.Meal;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import services.IDailyMenuService;
-import services.IMealsService;
 import services.IUsersService;
 
 
@@ -46,47 +44,47 @@ public class UsersService implements IUsersService {
     public Integer createUser(User user) {
         Integer errorCode;
 
-        if (user.getUzytkownik_id() == null) {
+        if (user.getUserId() == null) {
             errorCode = -1;
-        } else if (user.getImie() == null) {
+        } else if (user.getName() == null) {
             errorCode = -2;
-        } else if (user.getNazwisko() == null) {
+        } else if (user.getSurname() == null) {
             errorCode = -3;
-        } else if (user.getPlec() == null) {
+        } else if (user.getSex() == null) {
             errorCode = -4;
-        } else if (user.getWaga() == null) {
+        } else if (user.getWeight() == null) {
             errorCode = -5;
-        } else if (user.getWzrost() == null) {
+        } else if (user.getHeight() == null) {
             errorCode = -6;
-        } else if (user.getAktywnosc() == null) {
+        } else if (user.getActivity() == null) {
             errorCode = -7;
         } else if (user.getEmail() == null) {
             errorCode = -8;
-        } else if (user.getHaslo() == null) {
+        } else if (user.getPassword() == null) {
             errorCode = -9;
-        } else if (user.getZalecane_dzienne_kcal() == null) {
+        } else if (user.getRecommendedDailyKcal() == null) {
             errorCode = -10;
-        } else if (user.getZalecane_dzienne_bialko() == null) {
+        } else if (user.getRecommendedDailyProtein() == null) {
             errorCode = -11;
-        } else if (user.getZalecane_dzienne_tluszcze() == null) {
+        } else if (user.getRecommendedDailyFats() == null) {
             errorCode = -12;
-        } else if (user.getZalecane_dzienne_weglowodany() == null) {
+        } else if (user.getRecommendedDailyCarbohydrates() == null) {
             errorCode = -13;
         } else {
             jdbcTemplate.update(
-                    "INSERT INTO Uzytkownik VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                    user.getImie(),
-                    user.getNazwisko(),
-                    user.getPlec(),
-                    user.getWaga(),
-                    user.getWzrost(),
-                    user.getAktywnosc(),
+                    "INSERT INTO User VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    user.getName(),
+                    user.getSurname(),
+                    user.getSex(),
+                    user.getWeight(),
+                    user.getHeight(),
+                    user.getActivity(),
                     user.getEmail(),
-                    user.getHaslo(),
-                    user.getZalecane_dzienne_kcal(),
-                    user.getZalecane_dzienne_bialko(),
-                    user.getZalecane_dzienne_tluszcze(),
-                    user.getZalecane_dzienne_weglowodany()
+                    user.getPassword(),
+                    user.getRecommendedDailyKcal(),
+                    user.getRecommendedDailyProtein(),
+                    user.getRecommendedDailyFats(),
+                    user.getRecommendedDailyCarbohydrates()
             );
             errorCode = 0;
         }
@@ -97,7 +95,7 @@ public class UsersService implements IUsersService {
     // READ
     @Override
     public User getUser(Integer id) {
-        String sql = "SELECT * FROM Uzytkownik WHERE Uzytkownik_id = " + id;
+        String sql = "SELECT * FROM User WHERE UserId = " + id;
         List<User> users = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(User.class));
 
         if (users.size() == 0){
@@ -107,10 +105,10 @@ public class UsersService implements IUsersService {
             User user = users.get(0);
             List<DailyMenu> menus = (List<DailyMenu>) dailyMenuService.getDailyMenu();
             for (DailyMenu menu : menus) {
-                if(user.getUzytkownik_id().equals(menu.getUzytkownik_id())){
-                    if(user.getJadlospisy() == null)
-                        user.setJadlospisy(new ArrayList<>());
-                    user.getJadlospisy().add(menu);
+                if(user.getUserId().equals(menu.getUserId())){
+                    if(user.getDailyMeals() == null)
+                        user.setDailyMeals(new ArrayList<>());
+                    user.getDailyMeals().add(menu);
                 }
             }
             return user;
@@ -119,16 +117,16 @@ public class UsersService implements IUsersService {
 
     @Override
     public Collection<User> getUser() {
-        String sql = "SELECT * FROM Uzytkownik";
+        String sql = "SELECT * FROM [User]";
         List<User> users = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(User.class));
         List<DailyMenu> menus = (List<DailyMenu>) dailyMenuService.getDailyMenu();
 
         for (User user : users) {
             for (DailyMenu menu : menus) {
-                if(user.getUzytkownik_id().equals(menu.getUzytkownik_id())){
-                    if(user.getJadlospisy() == null)
-                        user.setJadlospisy(new ArrayList<>());
-                    user.getJadlospisy().add(menu);
+                if(user.getUserId().equals(menu.getUserId())){
+                    if(user.getDailyMeals() == null)
+                        user.setDailyMeals(new ArrayList<>());
+                    user.getDailyMeals().add(menu);
                 }
             }
         }
@@ -139,52 +137,52 @@ public class UsersService implements IUsersService {
     @Override
     public Integer updateUser(User user) {
         Integer errorCode;
-        User userToUpdate = getUser(user.getUzytkownik_id());
+        User userToUpdate = getUser(user.getUserId());
 
         if (userToUpdate == null) {
             errorCode = -1;
-        } else if (user.getImie() == null) {
+        } else if (user.getName() == null) {
             errorCode = -2;
-        } else if (user.getNazwisko() == null) {
+        } else if (user.getSurname() == null) {
             errorCode = -3;
-        } else if (user.getPlec() == null) {
+        } else if (user.getSex() == null) {
             errorCode = -4;
-        } else if (user.getWaga() == null) {
+        } else if (user.getWeight() == null) {
             errorCode = -5;
-        } else if (user.getWzrost() == null) {
+        } else if (user.getHeight() == null) {
             errorCode = -6;
-        } else if (user.getAktywnosc() == null) {
+        } else if (user.getActivity() == null) {
             errorCode = -7;
         } else if (user.getEmail() == null) {
             errorCode = -8;
-        } else if (user.getHaslo() == null) {
+        } else if (user.getPassword() == null) {
             errorCode = -9;
-        } else if (user.getZalecane_dzienne_kcal() == null) {
+        } else if (user.getRecommendedDailyKcal() == null) {
             errorCode = -10;
-        } else if (user.getZalecane_dzienne_bialko() == null) {
+        } else if (user.getRecommendedDailyProtein() == null) {
             errorCode = -11;
-        } else if (user.getZalecane_dzienne_tluszcze() == null) {
+        } else if (user.getRecommendedDailyFats() == null) {
             errorCode = -12;
-        } else if (user.getZalecane_dzienne_weglowodany() == null) {
+        } else if (user.getRecommendedDailyCarbohydrates() == null) {
             errorCode = -13;
         } else {
-            String SQL = "UPDATE Uzytkownik SET Imie = ?, Nazwisko = ?, Plec = ?, Waga = ?, Wzrost = ?, Aktywnosc = ?, " +
-                    "Email = ?, Haslo = ?, Zalecane_dzienne_kcal = ?, Zalecane_dzienne_bialko = ?, " +
-                    "Zalecane_dzienne_tluszcze = ?, Zalecane_dzienne_weglowodany = ? WHERE Uzytkownik_id = ?";
+            String SQL = "UPDATE User SET Name = ?, Surname = ?, Sex = ?, Weight = ?, Height = ?, Activity = ?, " +
+                    "Email = ?, Password = ?, RecommendedDailyKcal = ?, RecommendedDailyProtein = ?, " +
+                    "RecommendedDailyFats = ?, RecommendedDailyCarbohydrates = ? WHERE UserId = ?";
             jdbcTemplate.update(SQL,
-                    user.getImie(),
-                    user.getNazwisko(),
-                    user.getPlec(),
-                    user.getWaga(),
-                    user.getWzrost(),
-                    user.getAktywnosc(),
+                    user.getName(),
+                    user.getSurname(),
+                    user.getSex(),
+                    user.getWeight(),
+                    user.getHeight(),
+                    user.getActivity(),
                     user.getEmail(),
-                    user.getHaslo(),
-                    user.getZalecane_dzienne_kcal(),
-                    user.getZalecane_dzienne_bialko(),
-                    user.getZalecane_dzienne_tluszcze(),
-                    user.getZalecane_dzienne_weglowodany(),
-                    user.getUzytkownik_id());
+                    user.getPassword(),
+                    user.getRecommendedDailyKcal(),
+                    user.getRecommendedDailyProtein(),
+                    user.getRecommendedDailyFats(),
+                    user.getRecommendedDailyCarbohydrates(),
+                    user.getUserId());
             errorCode = 0;
         }
         return errorCode;
@@ -195,7 +193,7 @@ public class UsersService implements IUsersService {
     public Integer deleteUser(Integer id) {
         User userToDelete = getUser(id);
         if (userToDelete != null) {
-            String SQL = "DELETE FROM Uzytkownik WHERE Uzytkownik_id = ?";
+            String SQL = "DELETE FROM User WHERE UserId = ?";
             jdbcTemplate.update(SQL, id);
             return 0;
         }

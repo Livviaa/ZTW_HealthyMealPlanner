@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import services.IDailyMenuService;
-import services.IUsersService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -24,10 +23,10 @@ public class DailyMenuControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "Daily menu: #" + dailyMenu.getJadlospis_id() + " created.";
+            errorMessage = "Daily menu: #" + dailyMenu.getDailyMenuId() + " created.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: #" + dailyMenu.getJadlospis_id() + ".";
+            errorMessage = "Error with: #" + dailyMenu.getDailyMenuId() + ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);
@@ -64,10 +63,10 @@ public class DailyMenuControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "Daily menu: #" + dailyMenu.getJadlospis_id() + " updated.";
+            errorMessage = "Daily menu: #" + dailyMenu.getDailyMenuId() + " updated.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: #" + dailyMenu.getJadlospis_id() + ".";
+            errorMessage = "Error with: #" + dailyMenu.getDailyMenuId() + ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);

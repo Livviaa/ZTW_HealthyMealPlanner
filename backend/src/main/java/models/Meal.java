@@ -3,80 +3,80 @@ package models;
 import java.util.List;
 
 public class Meal {
-    private Integer Posilek_id;
-    private Integer Jadlospis_id;
-    private Double Sum_kcal;
-    private Double Sum_bialko;
-    private Double Sum_tluszcze;
-    private Double Sum_weglowodany;
-    private List<Recipe> Przepisy;
+    private Integer MealId;
+    private Integer DailyMenuId;
+    private Double SumKcal;
+    private Double SumProtein;
+    private Double SumFats;
+    private Double SumCarbohydrates;
+    private List<Recipe> Recipes;
 
     public Meal() {
     }
 
-    public Meal(Integer posilek_id, Integer jadlospis_id, Double sum_kcal, Double sum_bialko, Double sum_tluszcze, Double sum_weglowodany, List<Recipe> przepisy) {
-        Posilek_id = posilek_id;
-        Jadlospis_id = jadlospis_id;
-        Sum_kcal = sum_kcal;
-        Sum_bialko = sum_bialko;
-        Sum_tluszcze = sum_tluszcze;
-        Sum_weglowodany = sum_weglowodany;
-        Przepisy = przepisy;
+    public Meal(Integer mealId, Integer dailyMenuId, Double sumKcal, Double sumProtein, Double sumFats, Double sumCarbohydrates, List<Recipe> recipes) {
+        MealId = mealId;
+        DailyMenuId = dailyMenuId;
+        SumKcal = sumKcal;
+        SumProtein = sumProtein;
+        SumFats = sumFats;
+        SumCarbohydrates = sumCarbohydrates;
+        Recipes = recipes;
     }
 
-    public Integer getPosilek_id() {
-        return Posilek_id;
+    public Integer getMealId() {
+        return MealId;
     }
 
-    public void setPosilek_id(Integer posilek_id) {
-        Posilek_id = posilek_id;
+    public void setMealId(Integer mealId) {
+        MealId = mealId;
     }
 
-    public Integer getJadlospis_id() {
-        return Jadlospis_id;
+    public Integer getDailyMenuId() {
+        return DailyMenuId;
     }
 
-    public void setJadlospis_id(Integer jadlospis_id) {
-        Jadlospis_id = jadlospis_id;
+    public void setDailyMenuId(Integer dailyMenuId) {
+        DailyMenuId = dailyMenuId;
     }
 
-    public Double getSum_kcal() {
-        return Sum_kcal;
+    public Double getSumKcal() {
+        return SumKcal;
     }
 
-    public void setSum_kcal(Double sum_kcal) {
-        Sum_kcal = sum_kcal;
+    public void setSumKcal(Double sumKcal) {
+        SumKcal = sumKcal;
     }
 
-    public Double getSum_bialko() {
-        return Sum_bialko;
+    public Double getSumProtein() {
+        return SumProtein;
     }
 
-    public void setSum_bialko(Double sum_bialko) {
-        Sum_bialko = sum_bialko;
+    public void setSumProtein(Double sumProtein) {
+        SumProtein = sumProtein;
     }
 
-    public Double getSum_tluszcze() {
-        return Sum_tluszcze;
+    public Double getSumFats() {
+        return SumFats;
     }
 
-    public void setSum_tluszcze(Double sum_tluszcze) {
-        Sum_tluszcze = sum_tluszcze;
+    public void setSumFats(Double sumFats) {
+        SumFats = sumFats;
     }
 
-    public Double getSum_weglowodany() {
-        return Sum_weglowodany;
+    public Double getSumCarbohydrates() {
+        return SumCarbohydrates;
     }
 
-    public void setSum_weglowodany(Double sum_weglowodany) {
-        Sum_weglowodany = sum_weglowodany;
+    public void setSumCarbohydrates(Double sumCarbohydrates) {
+        SumCarbohydrates = sumCarbohydrates;
     }
 
-    public List<Recipe> getPrzepisy() {
-        return Przepisy;
+    public List<Recipe> getRecipes() {
+        return Recipes;
     }
 
-    public void setPrzepisy(List<Recipe> przepisy) {
-        Przepisy = przepisy;
+    public void setRecipes(List<Recipe> recipes) {
+        Recipes = recipes;
     }
 }

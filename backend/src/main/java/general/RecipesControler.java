@@ -23,10 +23,10 @@ public class RecipesControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "Recipe: #" + recipe.getPrzepis_id() + " created.";
+            errorMessage = "Recipe: #" + recipe.getRecipeId() + " created.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: " + recipe.getPrzepis_id()+ ".";
+            errorMessage = "Error with: " + recipe.getRecipeId()+ ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);
@@ -63,10 +63,10 @@ public class RecipesControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "Recipe: #" + recipe.getPrzepis_id() + " updated.";
+            errorMessage = "Recipe: #" + recipe.getRecipeId() + " updated.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: " + recipe.getPrzepis_id() + ".";
+            errorMessage = "Error with: " + recipe.getRecipeId() + ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);

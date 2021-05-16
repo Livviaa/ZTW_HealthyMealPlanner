@@ -1,47 +1,47 @@
 package general;
 
-import models.Recipe_Ingredient;
+import models.RecipesAndIngredients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.IRecipes_IngredientsService;
+import services.IRecipesAndIngredientsService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-public class Recipes_IngredientsControler {
+public class RecipesAndIngredientsControler {
 
     @Autowired
-    IRecipes_IngredientsService recipes_ingredientsService;
+    IRecipesAndIngredientsService recipesAndIngredientsService;
 
     // CREATE
-    @RequestMapping(value = "/recipe_ingredient", method = RequestMethod.POST)
-    public ResponseEntity<Object> createRecipeIngredient(@RequestBody Recipe_Ingredient recipe_ingredient) {
-        Integer errorCode = recipes_ingredientsService.createRecipe_Ingredient(recipe_ingredient);
+    @RequestMapping(value = "/recipe_and_ingredient", method = RequestMethod.POST)
+    public ResponseEntity<Object> createRecipeIngredient(@RequestBody RecipesAndIngredients recipesAndIngredients) {
+        Integer errorCode = recipesAndIngredientsService.createRecipesAndIngredient(recipesAndIngredients);
         String errorMessage;
         HttpStatus httpStatus;
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "Recipe-Ingredient: #" + recipe_ingredient + " created.";
+            errorMessage = "Recipe-Ingredient: #" + recipesAndIngredients + " created.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: " + recipe_ingredient + ".";
+            errorMessage = "Error with: " + recipesAndIngredients + ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);
     }
 
     // READ
-    @RequestMapping(value = "/recipe_ingredient", method = RequestMethod.GET)
+    @RequestMapping(value = "/recipe_and_ingredient", method = RequestMethod.GET)
     public ResponseEntity<Object> getRecipeIngredient() {
-        return new ResponseEntity<>(recipes_ingredientsService.getRecipe_Ingredient(), HttpStatus.OK);
+        return new ResponseEntity<>(recipesAndIngredientsService.getRecipesAndIngredient(), HttpStatus.OK);
     }
 
     // DELETE
-    @RequestMapping(value = "/recipe_ingredient/{id1},{id2}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/recipe_and_ingredient/{id1},{id2}", method = RequestMethod.DELETE)
     public ResponseEntity<Object> deleteRecipeIngredient(@PathVariable("id1") int id1, @PathVariable("id2") int id2) {
-        Integer errorCode = recipes_ingredientsService.deleteRecipe_Ingredient(id1, id2);
+        Integer errorCode = recipesAndIngredientsService.deleteRecipesAndIngredient(id1, id2);
         String errorMessage;
         HttpStatus httpStatus;
 

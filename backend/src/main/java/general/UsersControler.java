@@ -23,10 +23,10 @@ public class UsersControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "User: " + user.getImie() + " " + user.getNazwisko() + " created.";
+            errorMessage = "User: " + user.getName() + " " + user.getSurname() + " created.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: " + user.getImie() + " " + user.getNazwisko() + ".";
+            errorMessage = "Error with: " + user.getName() + " " + user.getSurname() + ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);
@@ -63,10 +63,10 @@ public class UsersControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "User: " + user.getImie() + " " + user.getNazwisko() + " updated.";
+            errorMessage = "User: " + user.getName() + " " + user.getSurname() + " updated.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: " + user.getImie() + " " + user.getNazwisko() + ".";
+            errorMessage = "Error with: " + user.getName() + " " + user.getSurname() + ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);

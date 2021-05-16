@@ -4,100 +4,100 @@ import java.util.List;
 
 public class Recipe {
 
-    private Integer Przepis_id;
-    private String Nazwa_potrawy;
-    private String Tresc;
-    private String Zdjecie;
-    private Double Sum_kcal;
-    private Double Sum_bialko;
-    private Double Sum_tluszcze;
-    private Double Sum_weglowodany;
-    private List<Ingredient> Skladniki;
+    private Integer RecipeId;
+    private String Name;
+    private String Instruction;
+    private String Image;
+    private Double SumKcal;
+    private Double SumProtein;
+    private Double SumFats;
+    private Double SumCarbohydrates;
+    private List<Ingredient> Ingredients;
 
     public Recipe() {
     }
 
-    public Recipe(Integer przepis_id, String nazwa_potrawy, String tresc, String zdjecie, Double sum_kcal, Double sum_bialko, Double sum_tluszcze, Double sum_weglowodany, List<Ingredient> skladniki) {
-        Przepis_id = przepis_id;
-        Nazwa_potrawy = nazwa_potrawy;
-        Tresc = tresc;
-        Zdjecie = zdjecie;
-        Sum_kcal = sum_kcal;
-        Sum_bialko = sum_bialko;
-        Sum_tluszcze = sum_tluszcze;
-        Sum_weglowodany = sum_weglowodany;
-        Skladniki = skladniki;
+    public Recipe(Integer recipeId, String name, String instruction, String image, Double sumKcal, Double sumProtein, Double sumFats, Double sumCarbohydrates, List<Ingredient> ingredients) {
+        RecipeId = recipeId;
+        Name = name;
+        Instruction = instruction;
+        Image = image;
+        SumKcal = sumKcal;
+        SumProtein = sumProtein;
+        SumFats = sumFats;
+        SumCarbohydrates = sumCarbohydrates;
+        Ingredients = ingredients;
     }
 
-    public Integer getPrzepis_id() {
-        return Przepis_id;
+    public Integer getRecipeId() {
+        return RecipeId;
     }
 
-    public void setPrzepis_id(Integer przepis_id) {
-        Przepis_id = przepis_id;
+    public void setRecipeId(Integer recipeId) {
+        RecipeId = recipeId;
     }
 
-    public String getNazwa_potrawy() {
-        return Nazwa_potrawy;
+    public String getName() {
+        return Name;
     }
 
-    public void setNazwa_potrawy(String nazwa_potrawy) {
-        Nazwa_potrawy = nazwa_potrawy;
+    public void setName(String name) {
+        Name = name;
     }
 
-    public String getTresc() {
-        return Tresc;
+    public String getInstruction() {
+        return Instruction;
     }
 
-    public void setTresc(String tresc) {
-        Tresc = tresc;
+    public void setInstruction(String instruction) {
+        Instruction = instruction;
     }
 
-    public String getZdjecie() {
-        return Zdjecie;
+    public String getImage() {
+        return Image;
     }
 
-    public void setZdjecie(String zdjecie) {
-        Zdjecie = zdjecie;
+    public void setImage(String image) {
+        Image = image;
     }
 
-    public Double getSum_kcal() {
-        return Sum_kcal;
+    public Double getSumKcal() {
+        return SumKcal;
     }
 
-    public void setSum_kcal(Double sum_kcal) {
-        Sum_kcal = sum_kcal;
+    public void setSumKcal(Double sumKcal) {
+        SumKcal = sumKcal;
     }
 
-    public Double getSum_bialko() {
-        return Sum_bialko;
+    public Double getSumProtein() {
+        return SumProtein;
     }
 
-    public void setSum_bialko(Double sum_bialko) {
-        Sum_bialko = sum_bialko;
+    public void setSumProtein(Double sumProtein) {
+        SumProtein = sumProtein;
     }
 
-    public Double getSum_tluszcze() {
-        return Sum_tluszcze;
+    public Double getSumFats() {
+        return SumFats;
     }
 
-    public void setSum_tluszcze(Double sum_tluszcze) {
-        Sum_tluszcze = sum_tluszcze;
+    public void setSumFats(Double sumFats) {
+        SumFats = sumFats;
     }
 
-    public Double getSum_weglowodany() {
-        return Sum_weglowodany;
+    public Double getSumCarbohydrates() {
+        return SumCarbohydrates;
     }
 
-    public void setSum_weglowodany(Double sum_weglowodany) {
-        Sum_weglowodany = sum_weglowodany;
+    public void setSumCarbohydrates(Double sumCarbohydrates) {
+        SumCarbohydrates = sumCarbohydrates;
     }
 
-    public List<Ingredient> getSkladniki() {
-        return Skladniki;
+    public List<Ingredient> getIngredients() {
+        return Ingredients;
     }
 
-    public void setSkladniki(List<Ingredient> skladniki) {
-        Skladniki = skladniki;
+    public void setIngredients(List<Ingredient> ingredients) {
+        Ingredients = ingredients;
     }
 }

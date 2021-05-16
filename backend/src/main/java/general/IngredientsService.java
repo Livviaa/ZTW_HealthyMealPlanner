@@ -1,7 +1,6 @@
 package general;
 
 import models.Ingredient;
-import models.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -25,32 +24,32 @@ public class IngredientsService implements IIngredientService {
     public Integer createIngredient(Ingredient ingredient) {
         Integer errorCode;
 
-        if (ingredient.getProdukt_id() == null) {
+        if (ingredient.getIngredientId() == null) {
             errorCode = -1;
-        } else if (ingredient.getNazwa_produktu() == null) {
+        } else if (ingredient.getName() == null) {
             errorCode = -2;
-        } else if (ingredient.getJednostka_miary() == null) {
+        } else if (ingredient.getMeasureUnit() == null) {
             errorCode = -3;
-        } else if (ingredient.getLiczba_jednostek() == null) {
+        } else if (ingredient.getUnits() == null) {
             errorCode = -4;
-        } else if (ingredient.getKcal_na_100_jednostek() == null) {
+        } else if (ingredient.getKcalPer100() == null) {
             errorCode = -5;
-        } else if (ingredient.getBialko_na_100_jednostek() == null) {
+        } else if (ingredient.getProteinPer100() == null) {
             errorCode = -6;
-        } else if (ingredient.getTluszcze_na_100_jednostek() == null) {
+        } else if (ingredient.getFatsPer100() == null) {
             errorCode = -7;
-        } else if (ingredient.getWeglowodany_na_100_jednostek() == null) {
+        } else if (ingredient.getCarbohydratesPer100() == null) {
             errorCode = -8;
         } else {
             jdbcTemplate.update(
-                    "INSERT INTO Produkt VALUES (?, ?, ?, ?, ?, ?, ?)",
-                    ingredient.getNazwa_produktu(),
-                    ingredient.getJednostka_miary(),
-                    ingredient.getLiczba_jednostek(),
-                    ingredient.getKcal_na_100_jednostek(),
-                    ingredient.getBialko_na_100_jednostek(),
-                    ingredient.getTluszcze_na_100_jednostek(),
-                    ingredient.getWeglowodany_na_100_jednostek()
+                    "INSERT INTO Ingredient VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    ingredient.getName(),
+                    ingredient.getMeasureUnit(),
+                    ingredient.getUnits(),
+                    ingredient.getKcalPer100(),
+                    ingredient.getProteinPer100(),
+                    ingredient.getFatsPer100(),
+                    ingredient.getCarbohydratesPer100()
             );
             errorCode = 0;
         }
@@ -60,7 +59,7 @@ public class IngredientsService implements IIngredientService {
     // READ
     @Override
     public Ingredient getIngredient(Integer id) {
-        String sql = "SELECT * FROM Produkt WHERE Produkt_id  = " + id;
+        String sql = "SELECT * FROM Ingredient WHERE IngredientId  = " + id;
         List<Ingredient> ingredients = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Ingredient.class));
 
         if (ingredients.size() == 0){
@@ -73,7 +72,7 @@ public class IngredientsService implements IIngredientService {
 
     @Override
     public Collection<Ingredient> getIngredient() {
-        String sql = "SELECT * FROM Produkt";
+        String sql = "SELECT * FROM Ingredient";
         List<Ingredient> ingredients = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Ingredient.class));
         return ingredients;
     }
@@ -82,36 +81,36 @@ public class IngredientsService implements IIngredientService {
     @Override
     public Integer updateIngredient(Ingredient ingredient) {
         Integer errorCode;
-        Ingredient ingredientToUpdate = getIngredient(ingredient.getProdukt_id());
+        Ingredient ingredientToUpdate = getIngredient(ingredient.getIngredientId());
 
         if (ingredientToUpdate == null) {
             errorCode = -1;
-        } else if (ingredient.getNazwa_produktu() == null) {
+        } else if (ingredient.getName() == null) {
             errorCode = -2;
-        } else if (ingredient.getJednostka_miary() == null) {
+        } else if (ingredient.getMeasureUnit() == null) {
             errorCode = -3;
-        } else if (ingredient.getLiczba_jednostek() == null) {
+        } else if (ingredient.getUnits() == null) {
             errorCode = -4;
-        } else if (ingredient.getKcal_na_100_jednostek() == null) {
+        } else if (ingredient.getKcalPer100() == null) {
             errorCode = -5;
-        } else if (ingredient.getBialko_na_100_jednostek() == null) {
+        } else if (ingredient.getProteinPer100() == null) {
             errorCode = -6;
-        } else if (ingredient.getTluszcze_na_100_jednostek() == null) {
+        } else if (ingredient.getFatsPer100() == null) {
             errorCode = -7;
-        } else if (ingredient.getWeglowodany_na_100_jednostek() == null) {
+        } else if (ingredient.getCarbohydratesPer100() == null) {
             errorCode = -8;
         }else {
-            String SQL = "UPDATE Produkt SET Nazwa_produktu = ?, Jednostka_miary = ?, Liczba_jednostek = ?, Kcal_na_100_jednostek = ?, Bialko_na_100_jednostek = ?, " +
-                    "Tluszcze_na_100_jednostek = ?, Weglowodany_na_100_jednostek = ?, WHERE Produkt_id = ?";
+            String SQL = "UPDATE Ingredient SET Name = ?, MeasureUnit = ?, Units = ?, KcalPer100 = ?, ProteinPer100 = ?, " +
+                    "FatsPer100 = ?, CarbohydratesPer100 = ?, WHERE IngredientId = ?";
             jdbcTemplate.update(SQL,
-                    ingredient.getNazwa_produktu(),
-                    ingredient.getJednostka_miary(),
-                    ingredient.getLiczba_jednostek(),
-                    ingredient.getKcal_na_100_jednostek(),
-                    ingredient.getBialko_na_100_jednostek(),
-                    ingredient.getTluszcze_na_100_jednostek(),
-                    ingredient.getWeglowodany_na_100_jednostek(),
-                    ingredient.getProdukt_id()
+                    ingredient.getName(),
+                    ingredient.getMeasureUnit(),
+                    ingredient.getUnits(),
+                    ingredient.getKcalPer100(),
+                    ingredient.getProteinPer100(),
+                    ingredient.getFatsPer100(),
+                    ingredient.getCarbohydratesPer100(),
+                    ingredient.getIngredientId()
             );
             errorCode = 0;
         }
@@ -123,7 +122,7 @@ public class IngredientsService implements IIngredientService {
     public Integer deleteIngredient(Integer id) {
         Ingredient ingredientToDelete = getIngredient(id);
         if (ingredientToDelete != null) {
-            String SQL = "DELETE FROM Produkt WHERE Produkt_id = ?";
+            String SQL = "DELETE FROM Ingredient WHERE IngredientId = ?";
             jdbcTemplate.update(SQL, id);
             return 0;
         }
