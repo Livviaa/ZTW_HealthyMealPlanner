@@ -1,19 +1,23 @@
 package general;
 
 import models.DailyMenu;
+import models.Meal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import services.IDailyMenuService;
+import services.IMealsService;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class DailyMenuService implements IDailyMenuService {
+
+    @Autowired
+    IMealsService mealsService;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -60,7 +64,16 @@ public class DailyMenuService implements IDailyMenuService {
         if (menus.size() == 0) {
             return null;
         } else {
-            return menus.get(0);
+            DailyMenu menu = menus.get(0);
+            List<Meal> meals = (List<Meal>) mealsService.getMeal();
+            for (Meal meal : meals){
+                if(menu.getJadlospis_id().equals(meal.getJadlospis_id())){
+                    if(menu.getPosilki() == null)
+                        menu.setPosilki(new ArrayList<>());
+                    menu.getPosilki().add(meal);
+                }
+            }
+            return menu;
         }
     }
 
@@ -68,6 +81,18 @@ public class DailyMenuService implements IDailyMenuService {
     public Collection<DailyMenu> getDailyMenu() {
         String sql = "SELECT * FROM Jadlospis";
         List<DailyMenu> menus = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(DailyMenu.class));
+        List<Meal> meals = (List<Meal>) mealsService.getMeal();
+
+        for (DailyMenu menu : menus) {
+            for (Meal meal : meals) {
+                if(menu.getJadlospis_id().equals(meal.getJadlospis_id())){
+                    if(menu.getPosilki() == null)
+                        menu.setPosilki(new ArrayList<>());
+                    menu.getPosilki().add(meal);
+                }
+            }
+        }
+
         return menus;
     }
 

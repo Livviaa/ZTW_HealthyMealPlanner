@@ -2,88 +2,92 @@ package models;
 
 public class Ingredient {
 
-    private Integer ingredientId;
-    private Integer intgredientName;
-    private String unitName;
-    private Integer unitsNumber;
-    private Double kcalPer100Units;
-    private Double proteinPer100Units;
-    private Double fatsPer100Units;
-    private Double carbohydratesPer100Units;
+    private Integer Produkt_id;
+    private String Nazwa_produktu;
+    private String Jednostka_miary;
+    private Integer Liczba_jednostek;
+    private Double Kcal_na_100_jednostek;
+    private Double Bialko_na_100_jednostek;
+    private Double Tluszcze_na_100_jednostek;
+    private Double Weglowodany_na_100_jednostek;
 
-    public Ingredient(Integer ingredientId, Integer intgredientName, String unitName, Integer unitsNumber,
-                      Double kcalPer100Units, Double proteinPer100Units, Double fatsPer100Units, Double carbohydratesPer100Units) {
-        this.ingredientId = ingredientId;
-        this.intgredientName = intgredientName;
-        this.unitName = unitName;
-        this.unitsNumber = unitsNumber;
-        this.kcalPer100Units = kcalPer100Units;
-        this.proteinPer100Units = proteinPer100Units;
-        this.fatsPer100Units = fatsPer100Units;
-        this.carbohydratesPer100Units = carbohydratesPer100Units;
+    public Ingredient() {
     }
 
-    public Integer getIngredientId() {
-        return ingredientId;
+    public Ingredient(Integer produkt_id, String nazwa_produktu, String jednostka_miary, Integer liczba_jednostek,
+                      Double kcal_na_100_jednostek, Double bialko_na_100_jednostek, Double tluszcze_na_100_jednostek,
+                      Double weglowodany_na_100_jednostek) {
+        Produkt_id = produkt_id;
+        Nazwa_produktu = nazwa_produktu;
+        Jednostka_miary = jednostka_miary;
+        Liczba_jednostek = liczba_jednostek;
+        Kcal_na_100_jednostek = kcal_na_100_jednostek;
+        Bialko_na_100_jednostek = bialko_na_100_jednostek;
+        Tluszcze_na_100_jednostek = tluszcze_na_100_jednostek;
+        Weglowodany_na_100_jednostek = weglowodany_na_100_jednostek;
     }
 
-    public void setIngredientId(Integer ingredientId) {
-        this.ingredientId = ingredientId;
+    public Integer getProdukt_id() {
+        return Produkt_id;
     }
 
-    public Integer getIntgredientName() {
-        return intgredientName;
+    public void setProdukt_id(Integer produkt_id) {
+        Produkt_id = produkt_id;
     }
 
-    public void setIntgredientName(Integer intgredientName) {
-        this.intgredientName = intgredientName;
+    public String getNazwa_produktu() {
+        return Nazwa_produktu;
     }
 
-    public String getUnitName() {
-        return unitName;
+    public void setNazwa_produktu(String nazwa_produktu) {
+        Nazwa_produktu = nazwa_produktu;
     }
 
-    public void setUnitName(String unitName) {
-        this.unitName = unitName;
+    public String getJednostka_miary() {
+        return Jednostka_miary;
     }
 
-    public Integer getUnitsNumber() {
-        return unitsNumber;
+    public void setJednostka_miary(String jednostka_miary) {
+        Jednostka_miary = jednostka_miary;
     }
 
-    public void setUnitsNumber(Integer unitsNumber) {
-        this.unitsNumber = unitsNumber;
+    public Integer getLiczba_jednostek() {
+        return Liczba_jednostek;
     }
 
-    public Double getKcalPer100Units() {
-        return kcalPer100Units;
+    public void setLiczba_jednostek(Integer liczba_jednostek) {
+        Liczba_jednostek = liczba_jednostek;
     }
 
-    public void setKcalPer100Units(Double kcalPer100Units) {
-        this.kcalPer100Units = kcalPer100Units;
+    public Double getKcal_na_100_jednostek() {
+        return Kcal_na_100_jednostek;
     }
 
-    public Double getProteinPer100Units() {
-        return proteinPer100Units;
+    public void setKcal_na_100_jednostek(Double kcal_na_100_jednostek) {
+        Kcal_na_100_jednostek = kcal_na_100_jednostek;
     }
 
-    public void setProteinPer100Units(Double proteinPer100Units) {
-        this.proteinPer100Units = proteinPer100Units;
+    public Double getBialko_na_100_jednostek() {
+        return Bialko_na_100_jednostek;
     }
 
-    public Double getFatsPer100Units() {
-        return fatsPer100Units;
+    public void setBialko_na_100_jednostek(Double bialko_na_100_jednostek) {
+        Bialko_na_100_jednostek = bialko_na_100_jednostek;
     }
 
-    public void setFatsPer100Units(Double fatsPer100Units) {
-        this.fatsPer100Units = fatsPer100Units;
+    public Double getTluszcze_na_100_jednostek() {
+        return Tluszcze_na_100_jednostek;
     }
 
-    public Double getCarbohydratesPer100Units() {
-        return carbohydratesPer100Units;
+    public void setTluszcze_na_100_jednostek(Double tluszcze_na_100_jednostek) {
+        Tluszcze_na_100_jednostek = tluszcze_na_100_jednostek;
     }
 
-    public void setCarbohydratesPer100Units(Double carbohydratesPer100Units) {
-        this.carbohydratesPer100Units = carbohydratesPer100Units;
+    public Double getWeglowodany_na_100_jednostek() {
+        return Weglowodany_na_100_jednostek;
+    }
+
+    public void setWeglowodany_na_100_jednostek(Double weglowodany_na_100_jednostek) {
+        Weglowodany_na_100_jednostek = weglowodany_na_100_jednostek;
     }
 }

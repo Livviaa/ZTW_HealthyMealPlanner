@@ -1,12 +1,14 @@
 package general;
 
 import models.DailyMenu;
+import models.Meal;
 import models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import services.IDailyMenuService;
+import services.IMealsService;
 import services.IUsersService;
 
 

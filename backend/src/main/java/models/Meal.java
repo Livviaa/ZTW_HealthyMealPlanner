@@ -1,57 +1,82 @@
 package models;
 
+import java.util.List;
+
 public class Meal {
-    private Integer mealId;
-    private Double sumKcal;
-    private Double sumProtein;
-    private Double sumFats;
-    private Double sumCarbohydrates;
+    private Integer Posilek_id;
+    private Integer Jadlospis_id;
+    private Double Sum_kcal;
+    private Double Sum_bialko;
+    private Double Sum_tluszcze;
+    private Double Sum_weglowodany;
+    private List<Recipe> Przepisy;
 
-    public Meal(Integer mealId, Double sumKcal, Double sumProtein, Double sumFats, Double sumCarbohydrates) {
-        this.mealId = mealId;
-        this.sumKcal = sumKcal;
-        this.sumProtein = sumProtein;
-        this.sumFats = sumFats;
-        this.sumCarbohydrates = sumCarbohydrates;
+    public Meal() {
     }
 
-    public Integer getMealId() {
-        return mealId;
+    public Meal(Integer posilek_id, Integer jadlospis_id, Double sum_kcal, Double sum_bialko, Double sum_tluszcze, Double sum_weglowodany, List<Recipe> przepisy) {
+        Posilek_id = posilek_id;
+        Jadlospis_id = jadlospis_id;
+        Sum_kcal = sum_kcal;
+        Sum_bialko = sum_bialko;
+        Sum_tluszcze = sum_tluszcze;
+        Sum_weglowodany = sum_weglowodany;
+        Przepisy = przepisy;
     }
 
-    public void setMealId(Integer mealId) {
-        this.mealId = mealId;
+    public Integer getPosilek_id() {
+        return Posilek_id;
     }
 
-    public Double getSumKcal() {
-        return sumKcal;
+    public void setPosilek_id(Integer posilek_id) {
+        Posilek_id = posilek_id;
     }
 
-    public void setSumKcal(Double sumKcal) {
-        this.sumKcal = sumKcal;
+    public Integer getJadlospis_id() {
+        return Jadlospis_id;
     }
 
-    public Double getSumProtein() {
-        return sumProtein;
+    public void setJadlospis_id(Integer jadlospis_id) {
+        Jadlospis_id = jadlospis_id;
     }
 
-    public void setSumProtein(Double sumProtein) {
-        this.sumProtein = sumProtein;
+    public Double getSum_kcal() {
+        return Sum_kcal;
     }
 
-    public Double getSumFats() {
-        return sumFats;
+    public void setSum_kcal(Double sum_kcal) {
+        Sum_kcal = sum_kcal;
     }
 
-    public void setSumFats(Double sumFats) {
-        this.sumFats = sumFats;
+    public Double getSum_bialko() {
+        return Sum_bialko;
     }
 
-    public Double getSumCarbohydrates() {
-        return sumCarbohydrates;
+    public void setSum_bialko(Double sum_bialko) {
+        Sum_bialko = sum_bialko;
     }
 
-    public void setSumCarbohydrates(Double sumCarbohydrates) {
-        this.sumCarbohydrates = sumCarbohydrates;
+    public Double getSum_tluszcze() {
+        return Sum_tluszcze;
+    }
+
+    public void setSum_tluszcze(Double sum_tluszcze) {
+        Sum_tluszcze = sum_tluszcze;
+    }
+
+    public Double getSum_weglowodany() {
+        return Sum_weglowodany;
+    }
+
+    public void setSum_weglowodany(Double sum_weglowodany) {
+        Sum_weglowodany = sum_weglowodany;
+    }
+
+    public List<Recipe> getPrzepisy() {
+        return Przepisy;
+    }
+
+    public void setPrzepisy(List<Recipe> przepisy) {
+        Przepisy = przepisy;
     }
 }

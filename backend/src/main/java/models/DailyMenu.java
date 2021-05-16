@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 public class DailyMenu {
 
@@ -11,11 +12,12 @@ public class DailyMenu {
     private Double Sum_bialko;
     private Double Sum_tluszcze;
     private Double Sum_weglowodany;
+    private List<Meal> Posilki;
 
     public DailyMenu() {
     }
 
-    public DailyMenu(Integer jadlospis_id, Integer uzytkownik_id, Date data, Double sum_kcal, Double sum_bialko, Double sum_tluszcze, Double sum_weglowodany) {
+    public DailyMenu(Integer jadlospis_id, Integer uzytkownik_id, Date data, Double sum_kcal, Double sum_bialko, Double sum_tluszcze, Double sum_weglowodany, List<Meal>posilki) {
         Jadlospis_id = jadlospis_id;
         Uzytkownik_id = uzytkownik_id;
         Data = data;
@@ -23,6 +25,7 @@ public class DailyMenu {
         Sum_bialko = sum_bialko;
         Sum_tluszcze = sum_tluszcze;
         Sum_weglowodany = sum_weglowodany;
+        Posilki = posilki;
     }
 
     public Integer getJadlospis_id() {
@@ -79,5 +82,13 @@ public class DailyMenu {
 
     public void setSum_weglowodany(Double sum_weglowodany) {
         Sum_weglowodany = sum_weglowodany;
+    }
+
+    public List<Meal> getPosilki() {
+        return Posilki;
+    }
+
+    public void setPosilki(List<Meal> posilki) {
+        Posilki = posilki;
     }
 }
