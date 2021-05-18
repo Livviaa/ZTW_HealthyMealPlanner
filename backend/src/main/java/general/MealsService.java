@@ -35,18 +35,8 @@ public class MealsService implements IMealsService {
     public Integer createMeal(Meal meal) {
         Integer errorCode;
 
-        if (meal.getMealId() == null) {
-            errorCode = -1;
-        } else if (meal.getDailyMenuId() == null) {
+         if (meal.getDailyMenuId() == null) {
             errorCode = -2;
-        } else if (meal.getSumKcal() == null) {
-            errorCode = -3;
-        } else if (meal.getSumProtein() == null) {
-            errorCode = -4;
-        } else if (meal.getSumFats() == null) {
-            errorCode = -5;
-        } else if (meal.getSumCarbohydrates() == null) {
-            errorCode = -6;
         } else {
             jdbcTemplate.update(
                     "INSERT INTO Meal VALUES (?, ?, ?, ?, ?)",
@@ -117,15 +107,7 @@ public class MealsService implements IMealsService {
             errorCode = -1;
         } else if (meal.getDailyMenuId() == null) {
             errorCode = -2;
-        } else if (meal.getSumKcal() == null) {
-            errorCode = -3;
-        } else if (meal.getSumProtein() == null) {
-            errorCode = -4;
-        } else if (meal.getSumFats() == null) {
-            errorCode = -5;
-        } else if (meal.getSumCarbohydrates() == null) {
-            errorCode = -6;
-        } else {
+        }  else {
             String SQL = "UPDATE Meal SET DailyMenuId = ?, SumKcal = ?, SumProtein = ?, SumFats = ?, " +
                     "SumCarbohydrates = ?, WHERE MealId = ?";
             jdbcTemplate.update(SQL,

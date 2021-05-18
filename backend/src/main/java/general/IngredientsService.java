@@ -24,9 +24,7 @@ public class IngredientsService implements IIngredientService {
     public Integer createIngredient(Ingredient ingredient) {
         Integer errorCode;
 
-        if (ingredient.getIngredientId() == null) {
-            errorCode = -1;
-        } else if (ingredient.getName() == null) {
+        if (ingredient.getName() == null) {
             errorCode = -2;
         } else if (ingredient.getMeasureUnit() == null) {
             errorCode = -3;

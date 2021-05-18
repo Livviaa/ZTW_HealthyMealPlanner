@@ -55,8 +55,9 @@ public class IngredientsControler {
     }
 
     // UPDATE
-    @RequestMapping(value = "/ingredient", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateIngredient(@RequestBody Ingredient ingredient) {
+    @RequestMapping(value = "/ingredient/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateIngredient(@RequestBody Ingredient ingredient, @PathVariable("id") int id) {
+        ingredient.setIngredientId(id);
         Integer errorCode = ingredientService.updateIngredient(ingredient);
         String errorMessage;
         HttpStatus httpStatus;

@@ -9,26 +9,9 @@ import org.springframework.stereotype.Service;
 import services.IDailyMenuService;
 import services.IUsersService;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-//{
-//        "uzytkownik_id": 6,
-//        "zalecane_dzienne_weglowodany": 180,
-//        "zalecane_dzienne_tluszcze": 160,
-//        "imie": "Ola",
-//        "zalecane_dzienne_kcal": 1500,
-//        "zalecane_dzienne_bialko": 20,
-//        "email": "ola.w@gmail.com",
-//        "naziwsko": "w",
-//        "plec": "K",
-//        "aktywnosc": "duzo",
-//        "wzrost": 160,
-//        "waga": 50,
-//        "haslo": "12345"
-//        }
 
 @Service
 public class UsersService implements IUsersService {
@@ -44,9 +27,7 @@ public class UsersService implements IUsersService {
     public Integer createUser(User user) {
         Integer errorCode;
 
-        if (user.getUserId() == null) {
-            errorCode = -1;
-        } else if (user.getName() == null) {
+        if (user.getName() == null) {
             errorCode = -2;
         } else if (user.getSurname() == null) {
             errorCode = -3;
@@ -62,17 +43,9 @@ public class UsersService implements IUsersService {
             errorCode = -8;
         } else if (user.getPassword() == null) {
             errorCode = -9;
-        } else if (user.getRecommendedDailyKcal() == null) {
-            errorCode = -10;
-        } else if (user.getRecommendedDailyProtein() == null) {
-            errorCode = -11;
-        } else if (user.getRecommendedDailyFats() == null) {
-            errorCode = -12;
-        } else if (user.getRecommendedDailyCarbohydrates() == null) {
-            errorCode = -13;
         } else {
             jdbcTemplate.update(
-                    "INSERT INTO User VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "INSERT INTO [User] VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     user.getName(),
                     user.getSurname(),
                     user.getSex(),
@@ -98,15 +71,14 @@ public class UsersService implements IUsersService {
         String sql = "SELECT * FROM [User] WHERE UserId = " + id;
         List<User> users = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(User.class));
 
-        if (users.size() == 0){
+        if (users.size() == 0) {
             return null;
-        }
-        else {
+        } else {
             User user = users.get(0);
             List<DailyMenu> menus = (List<DailyMenu>) dailyMenuService.getDailyMenu();
             for (DailyMenu menu : menus) {
-                if(user.getUserId().equals(menu.getUserId())){
-                    if(user.getDailyMeals() == null)
+                if (user.getUserId().equals(menu.getUserId())) {
+                    if (user.getDailyMeals() == null)
                         user.setDailyMeals(new ArrayList<>());
                     user.getDailyMeals().add(menu);
                 }
@@ -123,8 +95,8 @@ public class UsersService implements IUsersService {
 
         for (User user : users) {
             for (DailyMenu menu : menus) {
-                if(user.getUserId().equals(menu.getUserId())){
-                    if(user.getDailyMeals() == null)
+                if (user.getUserId().equals(menu.getUserId())) {
+                    if (user.getDailyMeals() == null)
                         user.setDailyMeals(new ArrayList<>());
                     user.getDailyMeals().add(menu);
                 }
@@ -157,14 +129,6 @@ public class UsersService implements IUsersService {
             errorCode = -8;
         } else if (user.getPassword() == null) {
             errorCode = -9;
-        } else if (user.getRecommendedDailyKcal() == null) {
-            errorCode = -10;
-        } else if (user.getRecommendedDailyProtein() == null) {
-            errorCode = -11;
-        } else if (user.getRecommendedDailyFats() == null) {
-            errorCode = -12;
-        } else if (user.getRecommendedDailyCarbohydrates() == null) {
-            errorCode = -13;
         } else {
             String SQL = "UPDATE User SET [Name] = ?, Surname = ?, Sex = ?, [Weight] = ?, Height = ?, Activity = ?, " +
                     "Email = ?, [Password] = ?, RecommendedDailyKcal = ?, RecommendedDailyProtein = ?, " +

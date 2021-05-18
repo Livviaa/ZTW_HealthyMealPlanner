@@ -35,22 +35,12 @@ public class RecipesService implements IRecipeService {
     public Integer createRecipe(Recipe recipe) {
         Integer errorCode;
 
-        if (recipe.getRecipeId() == null) {
-            errorCode = -1;
-        } else if (recipe.getName() == null) {
+        if (recipe.getName() == null) {
             errorCode = -2;
         } else if (recipe.getInstruction() == null) {
             errorCode = -3;
         } else if (recipe.getImage() == null) {
             errorCode = -4;
-        } else if (recipe.getSumKcal() == null) {
-            errorCode = -5;
-        } else if (recipe.getSumProtein() == null) {
-            errorCode = -6;
-        } else if (recipe.getSumFats() == null) {
-            errorCode = -7;
-        } else if (recipe.getSumCarbohydrates() == null) {
-            errorCode = -8;
         } else {
             jdbcTemplate.update(
                     "INSERT INTO Recipe VALUES (?, ?, ?, ?, ?, ?, ?)",
@@ -73,10 +63,22 @@ public class RecipesService implements IRecipeService {
         String sql = "SELECT * FROM Recipe WHERE RecipeId  = " + id;
         List<Recipe> recipes = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Recipe.class));
 
-        if (recipes.size() == 0){
+        if (recipes.size() == 0) {
             return null;
-        }
-        else {
+        } else {
+            Recipe recipe = recipes.get(0);
+            List<Ingredient> ingredients = (List<Ingredient>) ingredientService.getIngredient();
+            List<RecipesAndIngredients> allRecipesAndIngredients = (List<RecipesAndIngredients>) recipes_ingredientsService.getRecipesAndIngredient();
+
+            for (Ingredient ingredient : ingredients) {
+                for (RecipesAndIngredients recipesAndIngredients : allRecipesAndIngredients) {
+                    if (recipesAndIngredients.getRecipeId().equals(recipe.getRecipeId()) && recipesAndIngredients.getIngredientId().equals(ingredient.getIngredientId())) {
+                        if (recipe.getIngredients() == null)
+                            recipe.setIngredients(new ArrayList<>());
+                        recipe.getIngredients().add(ingredient);
+                    }
+                }
+            }
             return recipes.get(0);
         }
     }
@@ -88,17 +90,16 @@ public class RecipesService implements IRecipeService {
         List<Ingredient> ingredients = (List<Ingredient>) ingredientService.getIngredient();
         List<RecipesAndIngredients> allRecipesAndIngredients = (List<RecipesAndIngredients>) recipes_ingredientsService.getRecipesAndIngredient();
 
-        for (Recipe recipe : recipes){
-            for(Ingredient ingredient: ingredients){
-                for(RecipesAndIngredients recipesAndIngredients : allRecipesAndIngredients){
-                    if(recipesAndIngredients.getRecipeId().equals(recipe.getRecipeId()) && recipesAndIngredients.getIngredientId().equals(ingredient.getIngredientId())){
+        for (Recipe recipe : recipes) {
+            for (Ingredient ingredient : ingredients) {
+                for (RecipesAndIngredients recipesAndIngredients : allRecipesAndIngredients) {
+                    if (recipesAndIngredients.getRecipeId().equals(recipe.getRecipeId()) && recipesAndIngredients.getIngredientId().equals(ingredient.getIngredientId())) {
                         if (recipe.getIngredients() == null)
                             recipe.setIngredients(new ArrayList<>());
                         recipe.getIngredients().add(ingredient);
                     }
                 }
             }
-
         }
 
         return recipes;
@@ -118,15 +119,7 @@ public class RecipesService implements IRecipeService {
             errorCode = -3;
         } else if (recipe.getImage() == null) {
             errorCode = -4;
-        } else if (recipe.getSumKcal() == null) {
-            errorCode = -5;
-        } else if (recipe.getSumProtein() == null) {
-            errorCode = -6;
-        } else if (recipe.getSumFats() == null) {
-            errorCode = -7;
-        } else if (recipe.getSumCarbohydrates() == null) {
-            errorCode = -8;
-        }else {
+        } else {
             String SQL = "UPDATE Recipe SET [Name] = ?, Instruction = ?, [Image] = ?, SumKcal = ?, SumProtein = ?, " +
                     "SumFats = ?, SumCarbohydrates = ?, WHERE RecipeId = ?";
             jdbcTemplate.update(SQL,

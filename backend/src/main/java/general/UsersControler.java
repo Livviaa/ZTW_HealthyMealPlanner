@@ -55,8 +55,9 @@ public class UsersControler {
     }
 
     // UPDATE
-    @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateUser(@RequestBody User user) {
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable("id") int id) {
+        user.setUserId(id);
         Integer errorCode = usersService.updateUser(user);
         String errorMessage;
         HttpStatus httpStatus;

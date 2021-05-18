@@ -55,8 +55,9 @@ public class DailyMenuControler {
     }
 
     // UPDATE
-    @RequestMapping(value = "/dailymenu", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateDailyMenu(@RequestBody DailyMenu dailyMenu) {
+    @RequestMapping(value = "/dailymenu/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateDailyMenu(@RequestBody DailyMenu dailyMenu, @PathVariable("id") int id) {
+        dailyMenu.setDailyMenuId(id);
         Integer errorCode = dailyMenuService.updateDailyMenu(dailyMenu);
         String errorMessage;
         HttpStatus httpStatus;

@@ -26,20 +26,10 @@ public class DailyMenuService implements IDailyMenuService {
     public Integer createDailyMenu(DailyMenu dailyMenu) {
         Integer errorCode;
 
-        if (dailyMenu.getDailyMenuId() == null) {
-            errorCode = -1;
-        } else if (dailyMenu.getUserId() == null) {
+        if (dailyMenu.getUserId() == null) {
             errorCode = -2;
         } else if (dailyMenu.getDate() == null) {
             errorCode = -3;
-        } else if (dailyMenu.getSumKcal() == null) {
-            errorCode = -4;
-        } else if (dailyMenu.getSumProtein() == null) {
-            errorCode = -5;
-        } else if (dailyMenu.getSumFats() == null) {
-            errorCode = -6;
-        } else if (dailyMenu.getSumCarbohydrates() == null) {
-            errorCode = -7;
         } else {
             jdbcTemplate.update(
                     "INSERT INTO DailyMenu VALUES (?, ?, ?, ?, ?, ?)",
@@ -103,18 +93,8 @@ public class DailyMenuService implements IDailyMenuService {
 
         if (menuToUpdate == null) {
             errorCode = -1;
-        } else if (dailyMenu.getUserId() == null) {
-            errorCode = -2;
         } else if (dailyMenu.getDate() == null) {
-            errorCode = -3;
-        } else if (dailyMenu.getSumKcal() == null) {
-            errorCode = -4;
-        } else if (dailyMenu.getSumProtein() == null) {
-            errorCode = -5;
-        } else if (dailyMenu.getSumFats() == null) {
-            errorCode = -6;
-        } else if (dailyMenu.getSumCarbohydrates() == null) {
-            errorCode = -7;
+            errorCode = -2;
         } else {
             String SQL = "UPDATE DailyMenu SET UserId = ?, [Date] = ?, SumKcal = ?, SumProtein = ?, " +
                     "SumFats = ?, SumCarbohydrates = ? WHERE DailyMenuId = ?";

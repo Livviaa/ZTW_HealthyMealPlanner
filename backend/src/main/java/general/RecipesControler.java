@@ -23,10 +23,10 @@ public class RecipesControler {
 
         if (errorCode == 0) {
             httpStatus = HttpStatus.OK;
-            errorMessage = "Recipe: #" + recipe.getRecipeId() + " created.";
+            errorMessage = "Recipe: #" + recipe.getName() + " created.";
         } else {
             httpStatus = HttpStatus.BAD_REQUEST;
-            errorMessage = "Error with: " + recipe.getRecipeId()+ ".";
+            errorMessage = "Error with: " + recipe.getName()+ ".";
         }
 
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);
@@ -55,8 +55,9 @@ public class RecipesControler {
     }
 
     // UPDATE
-    @RequestMapping(value = "/recipe", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateRecipe(@RequestBody Recipe recipe) {
+    @RequestMapping(value = "/recipe/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateRecipe(@RequestBody Recipe recipe, @PathVariable("id") int id) {
+        recipe.setRecipeId(id);
         Integer errorCode = recipeService.updateRecipe(recipe);
         String errorMessage;
         HttpStatus httpStatus;

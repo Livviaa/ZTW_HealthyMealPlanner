@@ -55,8 +55,9 @@ public class MealsControler {
     }
 
     // UPDATE
-    @RequestMapping(value = "/meal", method = RequestMethod.PUT)
-    public ResponseEntity<Object> updateMeal(@RequestBody Meal meal) {
+    @RequestMapping(value = "/meal/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Object> updateMeal(@RequestBody Meal meal, @PathVariable("id") int id) {
+        meal.setMealId(id);
         Integer errorCode = mealsService.updateMeal(meal);
         String errorMessage;
         HttpStatus httpStatus;
