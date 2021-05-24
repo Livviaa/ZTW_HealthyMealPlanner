@@ -19,9 +19,6 @@ import java.util.List;
 public class MealsService implements IMealsService {
 
     @Autowired
-    IMealsService mealsService;
-
-    @Autowired
     IRecipeService recipeService;
 
     @Autowired
