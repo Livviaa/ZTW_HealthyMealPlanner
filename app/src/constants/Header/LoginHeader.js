@@ -1,6 +1,8 @@
 import React from 'react';
-function Header() {
+
+function LoginHeader() {
     return(
+        
         <nav class="navbar navbar-dark bg-primary">
             <div className="row col-12 d-flex justify-content-center text-white" style={{marginBottom: 0 }}>
             <span className="h3">Healthy Meal Planner</span>
@@ -8,4 +10,5 @@ function Header() {
         </nav>
     )
 }
-export default Header;
+
+export default LoginHeader;

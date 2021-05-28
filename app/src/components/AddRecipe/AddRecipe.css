@@ -1,0 +1,59 @@
+.addbox{
+    width: 50%;
+    height: auto;
+    border: 2px solid black;
+    margin-top: 40px;
+    margin-left: 300px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+.makrobox{
+    width: 20%;
+    height: 120px;
+    margin-right: 30px;
+    margin-top: 40px;
+    border: 2px solid black;
+    float: right;
+    display: inline-block;
+    border-radius: 5px;
+    
+}
+
+.title {
+    height: 40px;
+    background-color: rgb(65, 185, 241);
+    color: white;
+    justify-content: center; 
+}
+
+.img {
+    float: left;
+    display: inline-block;
+    height: 200px;
+    width: 200px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.ingridients {
+    float: right;
+    display: inline-block;
+    border: 0.5px solid black;
+    width: 300px;
+    margin-right: 0px;
+    margin-top: 10px;
+    margin-left: 60px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+ul, ol {
+    margin-left: 22px;
+}
+
+
+.clear {
+    display: flex;
+    margin-right: 0px;
+}

@@ -1,0 +1,44 @@
+.NavbarItems {
+    background-color: rgb(65, 185, 241);
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-logo {
+    color: white;
+    justify-self: start;
+    margin-left: 0;
+    margin-top: 5px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.nav-menu {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    grid-gap: 4px;
+    list-style: none;
+    text-align: center;
+    width: 70vw;
+    justify-content: end;
+    margin-top: 15px;   
+}
+
+.nav-links {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem ;
+    border-radius: 15px;
+    background-color: rgb(97, 216, 103);  
+    font-size: 13px;  
+}
+
+.nav-links:hover {
+    background-color: palevioletred;
+    color: white;
+    border-radius: 15px;
+    transition: all 0.1s ease-out ;
+    text-decoration: none;
+}
+

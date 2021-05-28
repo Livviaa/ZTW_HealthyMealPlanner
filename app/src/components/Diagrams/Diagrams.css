@@ -1,0 +1,16 @@
+.box{
+    border-radius: 5px;
+    width: 50%;
+    border: 3px solid rgb(23, 120, 199);
+    background-color: rgb(216, 239, 253);
+    margin-left: 300px;
+    margin-top: 30px;
+    
+}
+
+.title {
+    text-align: center;
+    font-size: 30px;
+    color: rgb(23, 120, 199);
+}
+

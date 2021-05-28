@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import diet1 from "./diet1.png";
 import diet2 from "./diet2.png";
 
@@ -12,7 +12,7 @@ function LoginForm(props) {
             <h3>Healthy Meal Planner</h3>
             <p >Zadbaj o swoje zdrowie! Zadbaj o swoją dietę razem z nami. </p>
             <img src={diet1} alt="Diet" style={{height: 150}} />
-            <img src={diet2} alt="Diet" style={{height: 150}} />
+            
         </div>
         <div id="from1">
         <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
@@ -42,6 +42,7 @@ function LoginForm(props) {
                     Zaloguj się!
                 </button>
                 <button 
+                    
                     type="registration" 
                     className="btn btn-primary"
                     style={{marginLeft: 30 }}

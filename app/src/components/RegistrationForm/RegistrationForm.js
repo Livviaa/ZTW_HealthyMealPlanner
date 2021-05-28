@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
+
 function RegistrationForm(props) {
   return(
-        <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
+        <div className="card col-12 col-lg-4 login-card mt-2 hv-center" style={{marginLeft: 400}}>
             <form>
             <div className="form-group text-left">
-                <label htmlFor="exampleInputGender1">Płeć</label>
-                <label for="female">Kobieta</label>
-                <input type="radio" name="gender" id="female" value="female"></input>
-                <label for="male">Mężczyzna</label>
-                <input type="radio" name="gender" id="male" value="male"></input>
+                <label htmlFor="exampleInputGender1">Płeć</label><br></br>
+               
+                <input type="radio" name="gender" id="female" value="female"></input> <label for="female">Kobieta</label><br></br>
+                <input type="radio" name="gender" id="male" value="male"></input> <label for="male">Mężczyzna</label>
                 
                 </div>
                 
@@ -45,7 +45,7 @@ function RegistrationForm(props) {
                 <input type="email" 
                        className="form-control" 
                        id="email" 
-                       placeholder="Podaj adres email..."
+                       placeholder="adres@email.com"
                        required
                 />
                 </div>
@@ -54,7 +54,7 @@ function RegistrationForm(props) {
                     <input type="password" 
                         className="form-control" 
                         id="password" 
-                        placeholder="Podaj hasło..."
+                        placeholder="********"
                         required
                     />
                 </div>
@@ -63,7 +63,7 @@ function RegistrationForm(props) {
                     <input type="password" 
                         className="form-control" 
                         id="confirmPassword" 
-                        placeholder="Powtórz hasło"
+                        placeholder="********"
                         required
                     />
                 </div>
@@ -73,14 +73,39 @@ function RegistrationForm(props) {
                 <input type="date" 
                        className="form-control" 
                        id="username" 
-                       
+               />
+                </div>
+
+                <div className="form-group text-left">
+                <label htmlFor="exampleInputHeight1">Wzrost [cm]</label>
+                <input type="height" 
+                       className="form-control" 
+                       id="height" 
+               />
+                </div>
+
+                <div className="form-group text-left">
+                <label htmlFor="exampleInputWeight1">Waga [kg]</label>
+                <input type="weight" 
+                       className="form-control" 
+                       id="weight" 
                 />
                 </div>
+
+                <div className="form-group text-left">
+                <label htmlFor="exampleInputActivity1">Aktywność </label><br></br>
+                <input type="radio" name="activity" id="none" value="none"></input> <label for="none">brak</label><br></br>
+                <input type="radio" name="activity" id="little" value="little"></input> <label for="little">1 - 2 razy w tyg.</label><br></br>
+                <input type="radio" name="activity" id="medium" value="medium"></input> <label for="medium">3 - 4 razy w tyg.</label><br></br>
+                <input type="radio" name="activity" id="large" value="large"></input> <label for="large">4 - 5 razy w tyg.</label><br></br>
+                
+                </div>
+
                 <button 
                     type="submit" 
                     className="btn btn-primary"
-                >
-                    Zaloguj 
+                    style={{marginBottom: 10, float: 'right'}}
+                >Zarejestruj się 
                 </button>
             </form>
         </div>
