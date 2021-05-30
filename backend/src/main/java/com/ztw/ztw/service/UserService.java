@@ -51,6 +51,7 @@ public class UserService {
             editedUser.setWeight(user.getWeight());
             editedUser.setHeight(user.getHeight());
             editedUser.setActivity(user.getActivity());
+            editedUser.setBirthDate(user.getBirthDate());
             editedUser.setRecommendedDailyKcal(user.getRecommendedDailyKcal());
             editedUser.setRecommendedDailyProtein(user.getRecommendedDailyProtein());
             editedUser.setRecommendedDailyFats(user.getRecommendedDailyFats());

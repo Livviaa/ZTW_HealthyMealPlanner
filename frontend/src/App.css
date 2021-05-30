@@ -1,0 +1,27 @@
+.column {
+  width: 40%;
+}
+
+.body {
+  padding-top: 20px;
+}
+
+.my-nav-bar {
+  padding-top: 56px;
+}
+
+.my-link {
+  color: white;
+}
+
+#root {
+  height: 100%;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+body {
+  height: 100vh;
+}

@@ -1,6 +1,8 @@
 package com.ztw.ztw.utils;
 
 import com.ztw.ztw.ZtwApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 
 import java.security.Principal;
@@ -20,5 +22,9 @@ public class Utils {
         String parsed = dateFormat.format(date);
         ZtwApplication.logger.info(parsed);
         return parsed;
+    }
+
+    public static boolean authorize(Principal principal){
+        return principal == null;
     }
 }

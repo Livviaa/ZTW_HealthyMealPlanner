@@ -59,7 +59,7 @@ public class UserController {
     // GENERAL
     // CREATE
     @PostMapping("/users")
-    public ResponseEntity<Object> addUser(@RequestBody User user) {
+    public ResponseEntity<Object> addUser(Principal principal, @RequestBody User user) {
         User createdUser = userService.addUser(user);
         String errorMessage;
         HttpStatus httpStatus;
@@ -88,7 +88,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<Object> getSingleUser(@PathVariable Integer id) {
+    public ResponseEntity<Object> getSingleUser(Principal principal, @PathVariable Integer id) {
         User user = userService.getSingleUser(id);
         String errorMessage;
         HttpStatus httpStatus;
@@ -105,7 +105,7 @@ public class UserController {
 
     // UPDATE
     @PutMapping("/users")
-    public ResponseEntity<Object> editUser(@RequestBody User user) {
+    public ResponseEntity<Object> editUser(Principal principal, @RequestBody User user) {
         User editedUser = userService.editUser(user);
         String errorMessage;
         HttpStatus httpStatus;
@@ -123,7 +123,7 @@ public class UserController {
 
     // DELETE
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable Integer id) {
+    public ResponseEntity<Object> deleteUser(Principal principal, @PathVariable Integer id) {
         boolean result = userService.deleteUser(id);
         String errorMessage;
         HttpStatus httpStatus;

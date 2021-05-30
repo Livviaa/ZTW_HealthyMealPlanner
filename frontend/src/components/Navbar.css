@@ -1,0 +1,39 @@
+.navbar {
+  height: 15%;
+  margin-left: 0px;
+  margin-bottom: 1%;
+}
+
+.navbar-brand {
+  color: white;
+  font-size: 3rem !important;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  margin-right: 0.5rem;
+  background-color: rgb(97, 216, 103);
+  font-size: 1.5rem;
+}
+
+.nav-link:hover {
+  background-color: palevioletred;
+  color: white;
+  border-radius: 15px;
+  transition: all 0.1s ease-out;
+  text-decoration: none;
+}
+
+.footer {
+  clear: both;
+  position: absolute;
+  bottom: 0;
+  color: black;
+  padding: 8;
+  margin: 1rem;
+}

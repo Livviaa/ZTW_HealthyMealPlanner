@@ -14,4 +14,4 @@ security:
       clientAuthenticationScheme: form
       scope: email
     resource:
-      userInfoUri: https://graph.facebook.com/me?fields=id,first_name,middle_name,last_name,name,email
+      userInfoUri: https://graph.facebook.com/me?fields=id,first_name,last_name,name,email

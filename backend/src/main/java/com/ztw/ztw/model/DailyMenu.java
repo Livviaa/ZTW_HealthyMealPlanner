@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "daily_menu")
 public class DailyMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

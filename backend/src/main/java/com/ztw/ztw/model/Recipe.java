@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@Table(name = "recipe")
 public class Recipe {
 
     @Id
