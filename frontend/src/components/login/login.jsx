@@ -1,11 +1,12 @@
 import React from "react";
-import AbstractBase from "./abstractBase";
+import AbstractBase from "../abstract_base/abstractBase";
 import "./login.css";
-import diet1 from "./../images/diet1.png";
+import diet1 from "./../../images/diet1.png";
 
 export default class Login extends AbstractBase {
   componentDidMount() {
-    this.isUserLogged().then((res) => this.setState({ isUserLogged: res }))
+    this.isUserLogged().then((res) => this.setState({ isUserLogged: res }));
+    document.body.style.backgroundColor = "#f2ffff"
   }
 
   leftColumn = () => {
@@ -23,7 +24,6 @@ export default class Login extends AbstractBase {
     return (
       <a
         className="nav-link btn btn-primary fb-btn"
-        //onClick={this.tryToLogin}
         href="http://localhost:8080/login"
       >
         Zaloguj się z Facebookiem
@@ -35,10 +35,10 @@ export default class Login extends AbstractBase {
     return (
       <div style={{ minHeight: "100%" }}>
         {this.navbar()}
-        <div className="center">
-          <div className="row">
-            <div className="column">{this.leftColumn()}</div>
-            <div className="column">{this.rightColumn()}</div>
+        <div className="center-login">
+          <div className="row-login">
+            <div className="column-login">{this.leftColumn()}</div>
+            <div className="column-login">{this.rightColumn()}</div>
           </div>
         </div>
         {this.footer()}

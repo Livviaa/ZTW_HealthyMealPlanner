@@ -1,6 +1,7 @@
 package com.ztw.ztw;
 
 import com.ztw.ztw.model.User;
+import com.ztw.ztw.service.MegaService;
 import com.ztw.ztw.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,7 @@ public class ZtwApplication {
     public static Logger logger = LoggerFactory.getLogger(ZtwApplication.class);
 
     private final UserService userService;
+    private final MegaService megaService;
 
     @GetMapping("/")
     public RedirectView home(Principal principal) {
@@ -53,6 +55,7 @@ public class ZtwApplication {
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("http://localhost:3000/profile");
         //redirectView.setUrl("http://localhost:8080/ingredients");
+        megaService.updateMacroElementsAll();
         return redirectView;
     }
 

@@ -1,4 +1,4 @@
-import AbstractBase from "./abstractBase";
+import AbstractBase from "../abstract_base/abstractBase";
 
 export default class Profile extends AbstractBase {
   constructor(props) {
@@ -27,6 +27,7 @@ export default class Profile extends AbstractBase {
   componentDidMount() {
     this.getActualUser();
     this.setState({ isUserLogged: true })
+    document.body.style.backgroundColor = "#a7f5f5"
   }
 
   getActualUser = async () => {
@@ -146,7 +147,7 @@ export default class Profile extends AbstractBase {
           birthDate: this.state.birthDate,
           height: parseInt(this.state.height),
           name: this.state.name,
-          sex: document.getElementById("male").checked === true ? "M" : "F",
+          sex: document.getElementById("male").checked === true ? "M" : "K",
           surname: this.state.surname,
           weight: parseInt(this.state.weight),
           userId: this.state.userId,

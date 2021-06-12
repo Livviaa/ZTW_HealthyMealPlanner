@@ -1,0 +1,29 @@
+.column-login {
+  width: 100%;
+  margin: 2%;
+}
+
+.row-login {
+  margin: auto;
+}
+
+.center-login {
+  width: 50%;
+  height: 50%;
+  margin:auto;
+}
+
+.fb-btn-login {
+  margin-top: 30%;
+  margin-left: 10%;
+  height: 40%;
+  width: 80%;
+  border-radius: 20px !important;
+  padding-top: 16% !important;
+  font-size: 140% !important;
+}
+
+.error-login {
+  font-weight: bold;
+  color: red;
+}

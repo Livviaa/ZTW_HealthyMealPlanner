@@ -21,6 +21,7 @@ public class MegaService {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final JdbcTemplate jdbcTemplate;
+    private final RecipeService recipeService;
 
 
     public void updateMacroElementsAll() {
@@ -85,49 +86,51 @@ public class MegaService {
             double bufSumFats = 0;
             double bufSumCarbohydrates = 0;
 
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                double grams = 0;
-                Integer units = ingredient.getUnits();
-                String measureUnit = ingredient.getMeasureUnit();
+            if (recipe.getIngredients() != null)
+                for (Ingredient ingredient : recipe.getIngredients()) {
+                    double grams = 0;
+                    Integer units = ingredient.getUnits();
+                    String measureUnit = ingredient.getMeasureUnit();
 
-                switch (measureUnit) {
-                    case "mg":
-                        grams = 0.001 * units;
-                        break;
-                    case "g":
-                    case "ml":
-                        grams = units;
-                        break;
-                    case "dag":
-                        grams = 10 * units;
-                        break;
-                    case "kg":
-                    case "l":
-                        grams = 1000 * units;
-                        break;
-                    case "szklanka (200g)":
-                        grams = 200 * units;
-                        break;
-                    case "łyżeczka (5g)":
-                        grams = 5 * units;
-                        break;
-                    case "łyżka (15g)":
-                        grams = 15 * units;
-                        break;
-                    case "garść (50g)":
-                        grams = 50 * units;
-                        break;
+                    switch (measureUnit) {
+                        case "mg":
+                            grams = 0.001 * units;
+                            break;
+                        case "g":
+                        case "ml":
+                            grams = units;
+                            break;
+                        case "dag":
+                            grams = 10 * units;
+                            break;
+                        case "kg":
+                        case "l":
+                            grams = 1000 * units;
+                            break;
+                        case "szklanka (200g)":
+                            grams = 200 * units;
+                            break;
+                        case "łyżeczka (5g)":
+                            grams = 5 * units;
+                            break;
+                        case "łyżka (15g)":
+                            grams = 15 * units;
+                            break;
+                        case "garść (50g)":
+                            grams = 50 * units;
+                            break;
+                    }
+                    bufSumKcal += grams / 100 * ingredient.getKcalPer100g();
+                    bufSumProtein += grams / 100 * ingredient.getProteinPer100g();
+                    bufSumFats += grams / 100 * ingredient.getFatsPer100g();
+                    bufSumCarbohydrates += grams / 100 * ingredient.getCarbohydratesPer100g();
                 }
-                bufSumKcal += grams / 100 * ingredient.getKcalPer100g();
-                bufSumProtein += grams / 100 * ingredient.getProteinPer100g();
-                bufSumFats += grams / 100 * ingredient.getFatsPer100g();
-                bufSumCarbohydrates += grams / 100 * ingredient.getCarbohydratesPer100g();
-            }
 
             recipe.setSumKcal(bufSumKcal);
             recipe.setSumProtein(bufSumProtein);
             recipe.setSumFats(bufSumFats);
             recipe.setSumCarbohydrates(bufSumCarbohydrates);
+            recipeService.editRecipe(recipe);
         }
     }
 }

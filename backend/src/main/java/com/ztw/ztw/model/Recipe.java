@@ -24,6 +24,7 @@ public class Recipe {
     private Double sumProtein;
     private Double sumFats;
     private Double sumCarbohydrates;
+    private String author;
 
     @ManyToMany
     @JoinTable(
