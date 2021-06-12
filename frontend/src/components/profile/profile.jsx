@@ -26,8 +26,8 @@ export default class Profile extends AbstractBase {
 
   componentDidMount() {
     this.getActualUser();
-    this.setState({ isUserLogged: true })
-    document.body.style.backgroundColor = "#a7f5f5"
+    this.setState({ isUserLogged: true });
+    document.body.style.backgroundColor = "#a7f5f5";
   }
 
   getActualUser = async () => {
@@ -85,7 +85,10 @@ export default class Profile extends AbstractBase {
           this.setState({ errors: errors });
         }
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error)
+        window.location.href = "http://localhost:3000/";
+      });
   };
 
   validateForm = (errors) => {

@@ -34,7 +34,8 @@ export default class AbstractBase extends Component {
                 return (
                   <li key={index} className="nav-item">
                     <a className="nav-link" href={item.url}>
-                      {item.title}
+                      <span className="mr-2">{item.svg}</span>
+                      <span>{item.title}</span>
                     </a>
                   </li>
                 );
@@ -106,7 +107,6 @@ export default class AbstractBase extends Component {
       })
         .then((response) => {
           response.json().then((res) => {
-            console.log(response.status);
             if (response.status === 200) {
               resolve(true);
             } else {
@@ -121,14 +121,14 @@ export default class AbstractBase extends Component {
   }
 
   // SVGS
-  fireSvg = () => {
+  fireSvg = (sizePx) => {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         enableBackground="new 0 0 24 24"
-        height="24px"
+        height={sizePx + "px"}
         viewBox="0 0 24 24"
-        width="24px"
+        width={sizePx + "px"}
         fill="#000000"
       >
         <g>
@@ -141,13 +141,13 @@ export default class AbstractBase extends Component {
     );
   };
 
-  bugSvg = () => {
+  bugSvg = (sizePx) => {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        height="24px"
+        height={sizePx + "px"}
         viewBox="0 0 24 24"
-        width="24px"
+        width={sizePx + "px"}
         fill="#000000"
       >
         <path d="M0 0h24v24H0V0z" fill="none" />
@@ -156,14 +156,14 @@ export default class AbstractBase extends Component {
     );
   };
 
-  waterSvg = () => {
+  waterSvg = (sizePx) => {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         enableBackground="new 0 0 24 24"
-        height="24px"
+        height={sizePx + "px"}
         viewBox="0 0 24 24"
-        width="24px"
+        width={sizePx + "px"}
         fill="#000000"
       >
         <rect fill="none" height="24" width="24" />
@@ -172,14 +172,14 @@ export default class AbstractBase extends Component {
     );
   };
 
-  bbqSvg = () => {
+  bbqSvg = (sizePx) => {
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"
         enableBackground="new 0 0 24 24"
-        height="24px"
+        height={sizePx + "px"}
         viewBox="0 0 24 24"
-        width="24px"
+        width={sizePx + "px"}
         fill="#000000"
       >
         <g>

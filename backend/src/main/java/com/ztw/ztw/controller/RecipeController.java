@@ -1,5 +1,6 @@
 package com.ztw.ztw.controller;
 
+import com.ztw.ztw.model.Ingredient;
 import com.ztw.ztw.model.Message;
 import com.ztw.ztw.model.Recipe;
 import com.ztw.ztw.model.User;
@@ -7,12 +8,15 @@ import com.ztw.ztw.service.MegaService;
 import com.ztw.ztw.service.RecipeService;
 import com.ztw.ztw.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.*;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -47,6 +51,12 @@ public class RecipeController {
     @PostMapping("/specific/recipes")
     public ResponseEntity<Object> addRecipeActualUser(Principal principal, @RequestBody Recipe recipe) {
         Map<String, Object> authDetails = (Map<String, Object>) ((OAuth2Authentication) principal).getUserAuthentication().getDetails();
+        String image = recipe.getImage();
+
+        byte[] bytes = Base64.decodeBase64(image);
+        recipe.setImageBytes(bytes);
+        recipe.setImage(null);
+
         String name = (String) authDetails.get("first_name");
         String surname = (String) authDetails.get("last_name");
         recipe.setAuthor(name + " " + surname);
@@ -84,10 +94,19 @@ public class RecipeController {
         return new ResponseEntity<>(new Message(errorMessage), httpStatus);
     }
 
-
     // READ
     @GetMapping("/recipes")
     public List<Recipe> getRecipes() {
+        ArrayList<Recipe> recipes = (ArrayList<Recipe>) recipeService.getRecipes();
+
+        for (Recipe recipe : recipes) {
+            byte[] imageBytes = recipe.getImageBytes();
+            if (imageBytes != null) {
+                String decoded = Base64.encodeBase64String(imageBytes);
+                recipe.setImageBytes(null);
+                recipe.setImage(decoded);
+            }
+        }
         return recipeService.getRecipes();
     }
 

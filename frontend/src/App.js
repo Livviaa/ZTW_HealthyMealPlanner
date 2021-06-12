@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Login from "./components/login/login";
 import Profile from "./components/profile/profile";
 import NewRecipe from "./components/new_recipe/new_recipe";
+import Recipes from "./components/recipes/recipes";
 
 export default class App extends Component {
   state = {
@@ -16,6 +17,7 @@ export default class App extends Component {
         <Route exact path="/" render={() => <Login />} />
         <Route path="/profile" render={() => <Profile />} />
         <Route path="/addrecipe" render={() => <NewRecipe />} />
+        <Route path="/recipes" render={() => <Recipes />} />
       </Router>
     );
   }

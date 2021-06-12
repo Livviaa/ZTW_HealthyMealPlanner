@@ -87,3 +87,11 @@
 .label-center-nr {
   text-align: center;
 }
+
+.image-nr {
+  width: 50%;
+  height: 50%;
+  border-color: black !important;
+  margin-top: 5%;
+  margin-left: 25%;
+}

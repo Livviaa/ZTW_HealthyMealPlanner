@@ -1,7 +1,7 @@
 import React from "react";
 import AbstractBase from "../abstract_base/abstractBase";
 import "./new_recipe.css";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Image } from "react-bootstrap";
 import MDEditor from "@uiw/react-md-editor";
 
 export default class NewRecipe extends AbstractBase {
@@ -19,10 +19,13 @@ export default class NewRecipe extends AbstractBase {
       recipeName: null,
       allIngredients: [],
       actualIngredients: [],
+      image: null,
+      imageBase64: null,
       errors: {
         recipeName: "Nazwa przepisu nie może być pusta!",
         ingredientsList: "Musi być dodany przynajmniej jeden składnik!",
         recipeText: "Treść przepisu nie może być pusta!",
+        image: "Przepis musi posiadać zdjęcie poglądowe!",
       },
     };
   }
@@ -43,14 +46,12 @@ export default class NewRecipe extends AbstractBase {
   }
 
   updateConclusionData() {
-    console.log("ASDASDSA");
-
     var sumKcal = 0;
     var sumProtein = 0;
     var sumFats = 0;
     var sumCarbohydrates = 0;
 
-    this.state.actualIngredients.map((item, index) => {
+    this.state.actualIngredients.forEach((item, index) => {
       var grams = 0;
       var units = item.units;
       var measureUnit = item.measureUnit;
@@ -80,6 +81,9 @@ export default class NewRecipe extends AbstractBase {
           break;
         case "garść (50g)":
           grams = 50 * units;
+          break;
+        default:
+          grams = 0;
           break;
       }
 
@@ -142,13 +146,12 @@ export default class NewRecipe extends AbstractBase {
     })
       .then((res) => res.json())
       .then((res) => {
-        const ingredients = [];
-        res.map((item, index) => {
-          ingredients.push(item);
-        });
-        this.setState({ allIngredients: ingredients });
+        this.setState({ allIngredients: res });
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => {
+        console.log("error", error);
+        window.location.href = "http://localhost:3000/";
+      });
   };
 
   validateRecipe = (errors) => {
@@ -168,14 +171,14 @@ export default class NewRecipe extends AbstractBase {
         },
         body: JSON.stringify({
           author: null,
-          image: null,
           instruction: this.state.recipeText,
           name: this.state.recipeName,
+          image: this.state.imageBase64,
         }),
       })
         .then((res) => res.json())
         .then((res) => {
-          this.state.actualIngredients.map((item, index) => {
+          this.state.actualIngredients.forEach((item, index) => {
             fetch(
               "http://localhost:8080/specific/recipes/" +
                 res.message +
@@ -227,6 +230,63 @@ export default class NewRecipe extends AbstractBase {
               onChange={this.handleChange}
               defaultValue={this.state.recipeName}
             />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
+
+  onImageChange = (event) => {
+    let errors = this.state.errors;
+    if (event.target.files && event.target.files[0]) {
+      let img = event.target.files[0];
+      this.toBase64(img).then((res) => {
+        this.setState({ imageBase64: res });
+      });
+      errors.image = "";
+      this.setState({
+        image: URL.createObjectURL(img),
+        errors: errors,
+      });
+    } else {
+      errors.image = "Przepis musi posiadać zdjęcie poglądowe!";
+      this.setState({ image: null, errors: errors });
+    }
+  };
+
+  imageViewWindow = () => {
+    const { errors } = this.state;
+    return (
+      <div className="card card-nr card-title-window-nr">
+        <div className="card-body">
+          <div className="form-group text-left">
+            <label className="label-nr" htmlFor="inputImage">
+              Dodaj obrazek:
+            </label>
+            {errors.image.length > 0 && (
+              <span className="error-nr">{errors.image}</span>
+            )}
+            <input
+              type="file"
+              className="mt-3"
+              id="image"
+              name="image"
+              required
+              onChange={this.onImageChange}
+            />
+            <div>
+              {this.state.image && (
+                <Image className="image-nr" src={this.state.image} thumbnail />
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -425,16 +485,16 @@ export default class NewRecipe extends AbstractBase {
       <div>
         <label className="label-nr label-center-nr">
           <span className="conclusion-nr">
-            Łącznie: {this.fireSvg()} {this.state.kcal} kcal
+            Łącznie: {this.fireSvg(24)} {this.state.kcal} kcal
           </span>
           <span className="conclusion-nr">
-            {this.bugSvg()} {this.state.protein} g
+            {this.bugSvg(24)} {this.state.protein} g
           </span>
           <span className="conclusion-nr">
-            {this.waterSvg()} {this.state.fats} g
+            {this.waterSvg(24)} {this.state.fats} g
           </span>
           <span className="conclusion-nr">
-            {this.bbqSvg()} {this.state.carbohydrates} g{" "}
+            {this.bbqSvg(24)} {this.state.carbohydrates} g{" "}
           </span>
         </label>
       </div>
@@ -449,6 +509,7 @@ export default class NewRecipe extends AbstractBase {
           <div className="card card-nr">
             <div className="card-header card-header-nr">Nowy Przepis</div>
             {this.titleWindow()}
+            {this.imageViewWindow()}
             {this.listOfIngredients()}
             {this.recipeEditor()}
             {this.addRecipeButton()}

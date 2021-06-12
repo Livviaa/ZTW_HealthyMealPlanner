@@ -25,6 +25,8 @@ public class Recipe {
     private Double sumFats;
     private Double sumCarbohydrates;
     private String author;
+    @Lob
+    private byte[] imageBytes;
 
     @ManyToMany
     @JoinTable(
