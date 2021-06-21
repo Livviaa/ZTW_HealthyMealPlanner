@@ -1,16 +1,15 @@
 package com.ztw.ztw.service;
 
-import com.ztw.ztw.model.DailyMenu;
-import com.ztw.ztw.model.Ingredient;
-import com.ztw.ztw.model.Meal;
-import com.ztw.ztw.model.Recipe;
+import com.ztw.ztw.model.*;
 import com.ztw.ztw.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +21,62 @@ public class MegaService {
     private final IngredientRepository ingredientRepository;
     private final JdbcTemplate jdbcTemplate;
     private final RecipeService recipeService;
+    private final MealService mealService;
+    private final UserService userService;
 
 
     public void updateMacroElementsAll() {
         updateMacroElementsRecipes();
         updateMacroElementsMeals();
         updateMacroElementsDailyMenus();
+        updateUsers();
     }
+
+    @Transactional
+    private void updateUsers() {
+        ArrayList<User> users = (ArrayList<User>) userRepository.findAll();
+
+        for (User user : users) {
+            // węglowodany (55%) i białka(10%) : 4 kcal == 1 g
+            // Tłuszcze (15%): 9 kcal == 1 g
+
+            double BMR;
+            Date today = new Date();
+            long difference_In_Time = today.getTime() - user.getBirthDate().getTime();
+            long difference_In_Years = (difference_In_Time / (1000L * 60 * 60 * 24 * 365));
+
+            if(user.getSex().equals("M")){
+                BMR = 66 + (13.7 * user.getWeight()) + (5 * user.getHeight()) - (6.8 * difference_In_Years);
+            }else{
+                BMR = 655 + (9.6 * user.getWeight()) + (1.8 * user.getHeight()) - (4.7 * difference_In_Years);
+            }
+
+            switch (user.getActivity()) {
+                case "brak":
+                    BMR *= 1.2;
+                    break;
+                case "malo":
+                    BMR *= 1.375;
+                    break;
+                case "srednio":
+                    BMR *= 1.725;
+                    break;
+                case "duzo":
+                    BMR *= 1.9;
+                    break;
+            }
+            user.setRecommendedDailyKcal(BMR);
+            double carbo = 0.55 * BMR / 4;
+            double prot = 0.10 * BMR / 4;
+            double fats = 0.15 * BMR / 9;
+
+            user.setRecommendedDailyProtein(prot);
+            user.setRecommendedDailyFats(fats);
+            user.setRecommendedDailyCarbohydrates(carbo);
+            userService.editUser(user);
+        }
+    }
+
 
     private void updateMacroElementsDailyMenus() {
         ArrayList<DailyMenu> dailyMenus = (ArrayList<DailyMenu>) dailyMenuRepository.findAll();
@@ -73,6 +121,7 @@ public class MegaService {
             meal.setSumProtein(bufSumProtein);
             meal.setSumFats(bufSumFats);
             meal.setSumCarbohydrates(bufSumCarbohydrates);
+            mealService.editMeal(meal);
         }
     }
 

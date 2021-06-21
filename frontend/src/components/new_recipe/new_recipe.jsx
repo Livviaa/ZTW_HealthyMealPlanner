@@ -19,6 +19,7 @@ export default class NewRecipe extends AbstractBase {
       recipeName: null,
       allIngredients: [],
       actualIngredients: [],
+      visibleIndexes: [],
       image: null,
       imageBase64: null,
       errors: {
@@ -146,7 +147,11 @@ export default class NewRecipe extends AbstractBase {
     })
       .then((res) => res.json())
       .then((res) => {
-        this.setState({ allIngredients: res });
+        var visibleIndexes = res.map((item, idx) => true);
+        this.setState(
+          { allIngredients: res, visibleIndexes: visibleIndexes },
+          this.sortAllIngredients
+        );
       })
       .catch((error) => {
         console.log("error", error);
@@ -226,6 +231,7 @@ export default class NewRecipe extends AbstractBase {
               id="recipeName"
               name="recipeName"
               placeholder="Przepis na..."
+              autocomplete="off"
               required
               onChange={this.handleChange}
               defaultValue={this.state.recipeName}
@@ -274,14 +280,17 @@ export default class NewRecipe extends AbstractBase {
             {errors.image.length > 0 && (
               <span className="error-nr">{errors.image}</span>
             )}
-            <input
-              type="file"
-              className="mt-3"
-              id="image"
-              name="image"
-              required
-              onChange={this.onImageChange}
-            />
+            <div>
+              <input
+                type="file"
+                className="mt-3"
+                id="image"
+                name="image"
+                required
+                onChange={this.onImageChange}
+              />
+            </div>
+
             <div>
               {this.state.image && (
                 <Image className="image-nr" src={this.state.image} thumbnail />
@@ -293,11 +302,37 @@ export default class NewRecipe extends AbstractBase {
     );
   };
 
+  resetVisibleIndexes = () => {
+    var visibleIndexes = this.state.visibleIndexes;
+    for (var i = 0; i < visibleIndexes.length; i++) {
+      visibleIndexes[i] = true;
+    }
+    this.setState({ visibleIndexes: visibleIndexes });
+  };
+
+  handleIgredientsSearchChange = (event) => {
+    var visibleIndexes = this.state.visibleIndexes;
+    const { name, value } = event.target;
+    this.resetVisibleIndexes();
+    if (value === "") {
+      this.resetVisibleIndexes();
+    } else {
+      this.state.allIngredients.forEach((item, index) => {
+        if (!item.name.includes(value)) {
+          visibleIndexes[index] = false;
+        }
+      });
+      this.setState({ visibleIndexes: visibleIndexes });
+    }
+  };
+
   ingredientsModalWindow = () => {
     return (
       <Modal
         show={this.state.showModal}
-        onHide={() => this.setState({ showModal: false })}
+        onHide={() =>
+          this.setState({ showModal: false }, this.resetVisibleIndexes)
+        }
       >
         <Modal.Header closeButton>
           <Modal.Title style={{ paddingLeft: "18%" }}>
@@ -305,21 +340,44 @@ export default class NewRecipe extends AbstractBase {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <div>
+            <input
+              style={{
+                width: "50%",
+                marginLeft: "25%",
+              }}
+              onChange={(value) => this.handleIgredientsSearchChange(value)}
+              type="text"
+              id="ingredientsSearch"
+              placeholder="Wyszukaj składniki"
+              name="ingredientsSearch"
+            />
+          </div>
           {this.state.allIngredients.map((item, index) => {
-            return (
-              <div key={index} style={{ margin: "2%" }}>
-                <Button
-                  variant="primary"
-                  style={{ width: "50%", marginLeft: "25%" }}
-                  onClick={() => {
-                    this.handleAddIngredient(item);
-                    this.setState({ showModal: false });
-                  }}
-                >
-                  {item.name}
-                </Button>
-              </div>
-            );
+            if (this.state.visibleIndexes[index]) {
+              return (
+                <div key={index} style={{ margin: "2%" }}>
+                  <Button
+                    variant="primary"
+                    style={{
+                      width: "50%",
+                      marginLeft: "25%",
+                      whiteSpace: "normal",
+                      wordWrap: "break-word",
+                    }}
+                    onClick={() => {
+                      this.handleAddIngredient(item);
+                      this.setState(
+                        { showModal: false },
+                        this.resetVisibleIndexes
+                      );
+                    }}
+                  >
+                    {item.name}
+                  </Button>
+                </div>
+              );
+            }
           })}
         </Modal.Body>
       </Modal>
@@ -485,16 +543,16 @@ export default class NewRecipe extends AbstractBase {
       <div>
         <label className="label-nr label-center-nr">
           <span className="conclusion-nr">
-            Łącznie: {this.fireSvg(24)} {this.state.kcal} kcal
+            Łącznie: {this.fireSvg(24)} {this.state.kcal.toFixed(2)} kcal
           </span>
           <span className="conclusion-nr">
-            {this.bugSvg(24)} {this.state.protein} g
+            {this.bugSvg(24)} {this.state.protein.toFixed(2)} g
           </span>
           <span className="conclusion-nr">
-            {this.waterSvg(24)} {this.state.fats} g
+            {this.waterSvg(24)} {this.state.fats.toFixed(2)} g
           </span>
           <span className="conclusion-nr">
-            {this.bbqSvg(24)} {this.state.carbohydrates} g{" "}
+            {this.bbqSvg(24)} {this.state.carbohydrates.toFixed(2)} g{" "}
           </span>
         </label>
       </div>

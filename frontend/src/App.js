@@ -5,6 +5,9 @@ import Login from "./components/login/login";
 import Profile from "./components/profile/profile";
 import NewRecipe from "./components/new_recipe/new_recipe";
 import Recipes from "./components/recipes/recipes";
+import Menus from "./components/menus/menus";
+import Diagrams from "./components/diagrams/diagrams";
+import ShoppingList from "./components/list_shopping/shopping_list";
 
 export default class App extends Component {
   state = {
@@ -18,6 +21,9 @@ export default class App extends Component {
         <Route path="/profile" render={() => <Profile />} />
         <Route path="/addrecipe" render={() => <NewRecipe />} />
         <Route path="/recipes" render={() => <Recipes />} />
+        <Route path="/menu" render={() => <Menus />} />
+        <Route path="/diagrams" render={() => <Diagrams />} />
+        <Route path="/shoppinglist" render={() => <ShoppingList />} />
       </Router>
     );
   }

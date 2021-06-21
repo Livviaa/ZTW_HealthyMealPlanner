@@ -17,9 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @RestController
@@ -46,7 +48,7 @@ public class DailyMenuController {
         List<DailyMenu> allMenus = dailyMenuService.getDailyMenus();
         String email = Utils.getEmail(principal);
         User user = userService.getUserByEmail(email);
-
+        megaService.updateMacroElementsAll();
         return allMenus.stream()
                 .filter(m ->
                         Utils.parseDate(m.getDate()).equals(date) && m.getUserId().equals(user.getUserId()))
@@ -55,27 +57,42 @@ public class DailyMenuController {
     }
 
     @PutMapping("specific/menus/{date}")
-    public DailyMenu initDailyMenuWithMealsForActualUserForDate(Principal principal, @PathVariable @DateTimeFormat(pattern="yyyy-MM-dd") Date date) {
+    public DailyMenu initDailyMenuWithMealsForActualUserForDate(Principal principal, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
         String email = Utils.getEmail(principal);
         User user = userService.getUserByEmail(email);
 
-        // Menu
-        DailyMenu newMenu = new DailyMenu();
-        newMenu.setDate(date);
-        newMenu.setUserId(user.getUserId());
-        Integer newMenuId = dailyMenuService.addDailyMenu(newMenu).getDailyMenuId();
+        date = new Date(date.getTime() + TimeUnit.HOURS.toMillis(2));
 
-        // Meals
-        Meal breakfast = new Meal();
-        breakfast.setDailyMenuId(newMenuId);
-        mealService.addMeal(breakfast);
-        Meal dinner = new Meal();
-        dinner.setDailyMenuId(newMenuId);
-        mealService.addMeal(dinner);
-        Meal sapper = new Meal();
-        sapper.setDailyMenuId(newMenuId);
-        mealService.addMeal(sapper);
-        return newMenu;
+        List<DailyMenu> foundMenus = new ArrayList<>();
+        for (DailyMenu x : dailyMenuService.getDailyMenus()) {
+            if (x.getDate().getDay() == date.getDay() && x.getDate().getMonth() == date.getMonth() && x.getDate().getYear() == date.getYear()) {
+                foundMenus.add(x);
+            }
+        }
+
+        System.out.println(foundMenus.size());
+
+        megaService.updateMacroElementsAll();
+        if (foundMenus.size() == 0) {
+            // Menu
+            DailyMenu newMenu = new DailyMenu();
+            newMenu.setDate(date);
+            newMenu.setUserId(user.getUserId());
+            Integer newMenuId = dailyMenuService.addDailyMenu(newMenu).getDailyMenuId();
+
+            // Meals
+            Meal breakfast = new Meal();
+            breakfast.setDailyMenuId(newMenuId);
+            mealService.addMeal(breakfast);
+            Meal dinner = new Meal();
+            dinner.setDailyMenuId(newMenuId);
+            mealService.addMeal(dinner);
+            Meal sapper = new Meal();
+            sapper.setDailyMenuId(newMenuId);
+            mealService.addMeal(sapper);
+            return newMenu;
+        }
+        return null;
     }
 
     // GENERAL

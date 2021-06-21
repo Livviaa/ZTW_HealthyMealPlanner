@@ -78,7 +78,6 @@ export default class Recipes extends AbstractBase {
     items.forEach((item, index) => {
       if (item.image !== null) {
         this.parseToFileAsync(item.image).then((res) => {
-          console.log(res);
           console.log("asd");
           items[index].imageParsed = URL.createObjectURL(res);
           this.setState({ recipes: items });
@@ -115,16 +114,16 @@ export default class Recipes extends AbstractBase {
       <div>
         <label className="label-re label-center-re">
           <span className="conclusion-re">
-            Łącznie: {this.fireSvg(20)} {item.sumKcal} kcal
+            Łącznie: {this.fireSvg(20)} {item.sumKcal.toFixed(2)} kcal
           </span>
           <span className="conclusion-re">
-            {this.bugSvg(20)} {item.sumProtein} g
+            {this.bugSvg(20)} {item.sumProtein.toFixed(2)} g
           </span>
           <span className="conclusion-re">
-            {this.waterSvg(20)} {item.sumFats} g
+            {this.waterSvg(20)} {item.sumFats.toFixed(2)} g
           </span>
           <span className="conclusion-re">
-            {this.bbqSvg(20)} {item.sumCarbohydrates} g{" "}
+            {this.bbqSvg(20)} {item.sumCarbohydrates.toFixed(2)} g{" "}
           </span>
         </label>
       </div>
